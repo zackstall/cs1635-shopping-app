@@ -29,5 +29,17 @@
         	android:theme="@android:style/Theme.NoTitleBar"
             android:name="com.shawnhanna.shop.BarcodeActivity" >
         </activity>
+        <activity
+        	android:theme="@android:style/Theme.NoTitleBar"
+            android:name="com.shawnhanna.shop.SearchActivity" >
+        </activity>
+        <activity
+        	android:theme="@android:style/Theme.NoTitleBar"
+            android:name="com.shawnhanna.shop.AisleViewActivity" >
+        </activity>
+        <activity
+        	android:theme="@android:style/Theme.NoTitleBar"
+            android:name="com.shawnhanna.shop.ItemMenuActivity" >
+        </activity>
     </application>
 </manifest>
