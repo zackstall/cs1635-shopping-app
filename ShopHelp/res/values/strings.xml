@@ -8,5 +8,15 @@
     <string name="menu_bar_list">List</string>
     <string name="menu_bar_barcode">Barcode</string>
     <string name="menu_bar_map">Map</string>
+    
+    
+    <string name="list_add_item">+ Add Item</string>
+    <string name="list_title">List</string>
+    <string name="list_no_items">no items to display</string>
+    <string name="list_item_carrot">></string>
+    <string name="list_item_name">N/A</string>
+    <string name="zero">0</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
 
 </resources>

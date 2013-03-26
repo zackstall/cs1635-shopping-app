@@ -65,11 +65,17 @@ public class Item {
 	public int setQuantityToZero(){
 		return quantity = 0;
 	}
+	public int getQuantity(){
+		return quantity;
+	}
 	
 	public boolean addToCart(){
 		return inCart = true;
 	}
 	public boolean removeFromCart(){
 		return inCart = false;
+	}
+	public boolean inCart(){
+		return inCart;
 	}
 }

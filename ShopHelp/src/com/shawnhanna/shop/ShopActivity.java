@@ -48,7 +48,7 @@ public abstract class ShopActivity extends Activity {
 		listMenuButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(ShopActivity.this, ListActivity.class);
+				Intent intent = new Intent(ShopActivity.this, ShopListActivity.class);
 			    startActivity(intent);
 			}});
 		

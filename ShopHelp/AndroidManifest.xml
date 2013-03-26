@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme">
         <activity
         	android:theme="@android:style/Theme.NoTitleBar"
-            android:name="com.shawnhanna.shop.ListActivity" >
+            android:name="com.shawnhanna.shop.ShopListActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
