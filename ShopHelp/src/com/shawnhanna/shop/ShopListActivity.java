@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.*;
 import android.widget.*;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.view.View.OnClickListener;
 
 public class ShopListActivity extends ListActivity
@@ -94,28 +95,47 @@ public class ShopListActivity extends ListActivity
 			    startActivity(intent);
 			}
 		});
-		mapButton.setOnClickListener(new OnClickListener() 
-		{
-			@Override
-			public void onClick(View arg0) 
-			{		
-				Intent intent = new Intent(ShopListActivity.this, MapActivity.class);
-			    startActivity(intent);
-			}
-		});
-	}
-	
-	public void onListItemClick(ListView l, View v, int position, long id)
-	{
-		 super.onListItemClick(l, v, position, id);
-	     Toast.makeText(this, "Position: "+position, position).show();
 	}
 
+	@Override
+	protected void onListItemClick(ListView listview, View view, int position, long id) 
+	{
+
+		Intent intent = new Intent(ShopListActivity.this, ItemMenuActivity.class);
+	    startActivity(intent);
+		Log.d("----NOTE", "were in");
+		if(view.getTag()==null)
+		{
+			Log.d("----NOTE", "tag is null");		
+		}
+		else if(((String)view.getTag()).equals("MENU"))
+		{
+			//Intent intent = new Intent(ShopListActivity.this, ItemMenuActivity.class);
+		    //startActivity(intent);
+		}
+		else if(((String)view.getTag()).equals("CBOX"))
+		{
+			//do nothing for now
+		}
+		else if(((String)view.getTag()).equals("ADD"))
+		{
+			itemList.get(position).incrementQuantity();
+		}
+		else if(((String)view.getTag()).equals("SUB"))
+		{
+			itemList.get(position).decrementQuantity();
+		}
+		else
+		{
+			Log.d("----NOTE", "no valid tag");
+		}
+	}
+	
 //-----------------------------------------------------------------------------------------------------------------------------
 //-- ITEM ADAPTER PRIVATE CLASS
 //-----------------------------------------------------------------------------------------------------------------------------
 	
-	private class ItemAdapter extends ArrayAdapter<Item> 
+	private class ItemAdapter extends ArrayAdapter<Item>
 	{
 		private ArrayList<Item> items;
 	
@@ -142,20 +162,24 @@ public class ShopListActivity extends ListActivity
 	        {
 	        	//button creation
 	        	CheckBox inCartCheckBox = (CheckBox) view.findViewById(R.id.in_cart);
+	        	inCartCheckBox.setTag("CBOX");
 	        	TextView nameField = (TextView) view.findViewById(R.id.item_name);
-	        	Button plusbutton = (Button) view.findViewById(R.id.increment_quantity);
 	        	TextView QuantityFielld = (TextView) view.findViewById(R.id.item_quantity);
-	        	Button minusButton = (Button) view.findViewById(R.id.decrement_quantity);
-	        	Button itemActionButton = (Button) view.findViewById(R.id.item_action_button);
 	        	
+	        	Button plusButton = (Button) view.findViewById(R.id.increment_quantity);
+	        	plusButton.setTag("ADD");
+	        	Button minusButton = (Button) view.findViewById(R.id.decrement_quantity);
+	        	minusButton.setTag("SUB");
+	        	Button itemActionButton = (Button) view.findViewById(R.id.item_action_button);
+	        	itemActionButton.setTag("MENU");
 	        	
 	        	//all fields are set using the data from each item in the item array
 	        	inCartCheckBox.setSelected(item.inCart());
 	        	if (nameField != null) nameField.setText(""+item.getShortName());
 	        	if (QuantityFielld != null) QuantityFielld.setText(""+item.getQuantity());
-
 	        }
 	        return view;
 	    }
 	}
+
 }

@@ -110,7 +110,14 @@ public class SearchActivity  extends ListActivity {
 			}
 		});
 	}
+	
+	@Override
+	protected void onListItemClick(ListView listview, View view, int position, long id) 
+	{
 
+		Intent intent = new Intent(SearchActivity.this, ShopListActivity.class);
+	    startActivity(intent);
+	}
 	
 //-----------------------------------------------------------------------------------------------------------------------------
 //-- RESULT ADAPTER PRIVATE CLASS
