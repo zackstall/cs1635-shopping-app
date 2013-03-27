@@ -3,11 +3,13 @@ package com.shawnhanna.shop;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public abstract class ShopActivity extends Activity {
 
@@ -40,37 +42,31 @@ public abstract class ShopActivity extends Activity {
 		super.onDestroy();
 	}
 
-	protected void setupMenuBarButtons(ShopActivity activity) {
-		Button listMenuButton = (Button) activity
-				.findViewById(R.id.listMenuButton);
-		Button barcodeMenuButton = (Button) activity
-				.findViewById(R.id.barcodeMenuButton);
-		Button mapMenuButton = (Button) activity
-				.findViewById(R.id.mapMenuButton);
+	protected static void setupMenuBarButtons(final Activity activity) {
+		ImageButton listMenuButton = (ImageButton) activity.findViewById(R.id.listMenuButton);
+		ImageButton barcodeMenuButton = (ImageButton) activity.findViewById(R.id.scanMenuButton);
+		ImageButton mapMenuButton = (ImageButton) activity.findViewById(R.id.mapMenuButton);
 
 		listMenuButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(ShopActivity.this,
-						ListActivity.class);
-				startActivity(intent);
-			}
-		});
-
-		barcodeMenuButton.setOnClickListener(new OnClickListener() {
+				Intent intent = new Intent(activity, ShopListActivity.class);
+			    activity.startActivity(intent);
+			}});
+		
+		barcodeMenuButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(ShopActivity.this,
-						BarcodeActivity.class);
-				startActivity(intent);
-			}
-		});
-
-		mapMenuButton.setOnClickListener(new OnClickListener() {
+				Log.d("CLICKED", "CLICKED");
+				Intent intent = new Intent(activity, BarcodeActivity.class);
+				activity.startActivity(intent);
+			}});
+		
+		mapMenuButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(ShopActivity.this, MapActivity.class);
-				startActivity(intent);
+				Intent intent = new Intent(activity, MapActivity.class);
+				activity.startActivity(intent);
 			}
 		});
 	}

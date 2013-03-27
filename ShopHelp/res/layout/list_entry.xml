@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:padding="6dip">
+
+    <RelativeLayout
+        android:layout_width="0dip"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/item_action_button"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="33dp"
+            android:layout_height="32dp"
+			android:focusableInTouchMode="false"
+			android:clickable="false"
+			android:focusable="false"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="@string/list_item_carrot" />
+
+        <TextView
+            android:id="@+id/item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/in_cart"
+            android:text="@string/list_item_name"
+			android:focusableInTouchMode="false"
+			android:clickable="false"
+			android:focusable="false"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <CheckBox
+            android:id="@+id/in_cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/item_name"
+            android:layout_alignParentLeft="true"
+			android:focusableInTouchMode="false"
+			android:clickable="false"
+			android:focusable="false"
+            android:layout_alignTop="@+id/increment_quantity" />
+
+        <TextView
+            android:id="@+id/item_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/increment_quantity"
+            android:text="@string/zero"
+			android:focusableInTouchMode="false"
+			android:clickable="false"
+			android:focusable="false"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <Button
+            android:id="@+id/decrement_quantity"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+			android:focusableInTouchMode="false"
+			android:clickable="false"
+			android:focusable="false"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/item_quantity"
+            android:text="@string/minus" />
+
+        <Button
+            android:id="@+id/increment_quantity"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+			android:focusableInTouchMode="false"
+			android:clickable="false"
+			android:focusable="false"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="38dp"
+            android:layout_toLeftOf="@+id/item_action_button"
+            android:text="@string/plus" />
+
+    </RelativeLayout>
+
+</LinearLayout>
