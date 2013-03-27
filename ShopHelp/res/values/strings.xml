@@ -18,5 +18,10 @@
     <string name="zero">0</string>
     <string name="plus">+</string>
     <string name="minus">-</string>
+    
+    <string name="search_add">Add</string>
+    <string name="search_text">Search...</string>
+    <string name="search_return">&#8629;</string>
+    <string name="search_button">search</string>
 
 </resources>

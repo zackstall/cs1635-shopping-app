@@ -10,91 +10,136 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.*;
 import android.widget.*;
+import android.view.View.OnClickListener;
 
-public class ShopListActivity extends ListActivity{
+public class ShopListActivity extends ListActivity
+{
 	static final String TAG="ListActivity";
 	
 	private ListView itemListView;
 	private ArrayList<Item> itemList;	
-	private ProgressDialog m_ProgressDialog = null; 
 	private ItemAdapter itemAdapter;
-	private Runnable viewItems;
+	private Button searchButton;
+	private Button listButton;
+	private Button barcodeButton;
+	private Button mapButton;
 
+//-----------------------------------------------------------------------------------------------------------------------------
+//-- ONCREATE
+//-----------------------------------------------------------------------------------------------------------------------------
+			
 	@SuppressWarnings("unchecked")
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) 
+	{
+		//the static items must be created
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_list);
-		
-		//setupMenuBarButtons(this);
-		
-		Log.d(TAG, "Created ListActivity");
-		
-		itemList = new ArrayList<Item>();
 
-        this.itemAdapter = new ItemAdapter(this, R.layout.list_entry, itemList);
-        setListAdapter(this.itemAdapter);
+		//initializes views and buttons
+        initializeViewItems();
 		
-        viewItems = new Runnable(){
-            @Override
-            public void run() {
-        		for(int i = 0; i < 15; i++)	itemList.add(new Item(""+i,""+i,i,i,i));
-                runOnUiThread(returnRes);
-            }
-        };
+		//NOTE: this is just temporary until we get the DB set up
+		itemList = new ArrayList<Item>();
+        itemAdapter = new ItemAdapter(this, R.layout.list_entry, itemList);
+		for(int i = 0; i < 15; i++)	itemList.add(new Item(""+i,""+i,i,i,i));
         
-        Thread thread =  new Thread(null, viewItems, "MagentoBackground");
-        thread.start();
-        m_ProgressDialog = ProgressDialog.show(ShopListActivity.this, "Please wait...", "Retrieving data ...", true);
+		setListAdapter(itemAdapter);  
         
-		itemListView = (ListView) findViewById(R.id.itemListView);
+        //define button listeners
+        initializeButtonListeners();
 	}
 	
-	//update the list by adding the array contents to the adapter
-	private Runnable returnRes = new Runnable() {
+//-----------------------------------------------------------------------------------------------------------------------------
+//-- UTILITY FUNCTIONS
+//-----------------------------------------------------------------------------------------------------------------------------
+			
+	private void initializeViewItems()
+	{
+		setContentView(R.layout.activity_list);
+		itemListView = (ListView) findViewById( R.id.item_list_view );
 
-        @Override
-        public void run() {
-            if(itemList != null && itemList.size() > 0){
-            	itemAdapter.notifyDataSetChanged();
-            	/*
-            	Log.w("myApp", ""+itemList.size());
-                for(int i=0;i<itemList.size();i++)
-                {
-                	Log.w("myApp", ""+itemList.size()+" : "+i);
-                	itemAdapter.add(itemList.get(i));
-                }*/
-                for(int i=0;i<15;i++) 	itemAdapter.add(itemList.get(i));
-            }
-            m_ProgressDialog.dismiss();
-            itemAdapter.notifyDataSetChanged();
-        }
-      };
+		searchButton = (Button) findViewById(R.id.add_item_button);
+		listButton = (Button) findViewById(R.id.listMenuButton);
+		barcodeButton = (Button) findViewById(R.id.barcodeMenuButton);
+		mapButton = (Button) findViewById(R.id.mapMenuButton);
+	}
 	
+	private void initializeButtonListeners() 
+	{
+		searchButton.setOnClickListener(new OnClickListener() 
+		{
+			@Override
+			public void onClick(View arg0) 
+			{
+				Intent intent = new Intent(ShopListActivity.this, SearchActivity.class);
+			    startActivity(intent);
+			}
+		});		
+		listButton.setOnClickListener(new OnClickListener() 
+		{
+			@Override
+			public void onClick(View arg0) 
+			{		
+				//do nothing
+			}
+		});
+		barcodeButton.setOnClickListener(new OnClickListener() 
+		{
+			@Override
+			public void onClick(View arg0) 
+			{		
+				Intent intent = new Intent(ShopListActivity.this, BarcodeActivity.class);
+			    startActivity(intent);
+			}
+		});
+		mapButton.setOnClickListener(new OnClickListener() 
+		{
+			@Override
+			public void onClick(View arg0) 
+			{		
+				Intent intent = new Intent(ShopListActivity.this, MapActivity.class);
+			    startActivity(intent);
+			}
+		});
+	}
 
-	private class ItemAdapter extends ArrayAdapter<Item> {
+//-----------------------------------------------------------------------------------------------------------------------------
+//-- ITEM ADAPTER PRIVATE CLASS
+//-----------------------------------------------------------------------------------------------------------------------------
+	
+	private class ItemAdapter extends ArrayAdapter<Item> 
+	{
 		private ArrayList<Item> items;
 	
-	    public ItemAdapter(Context context, int textViewResourceId, ArrayList<Item> items) {
+	    public ItemAdapter(Context context, int textViewResourceId, ArrayList<Item> items) 
+	    {
 	            super(context, textViewResourceId, items);
 	            this.items = items;
 	    }
 	
-	    @Override
-	    public View getView(int position, View convertView, ViewGroup parent) {
-			View view = convertView;
-	        if (view == null) {
-	        	LayoutInflater vi = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	        	view = vi.inflate(R.layout.list_entry, null);
+	    @SuppressWarnings("unchecked")
+		@Override
+	    public View getView(int position, View convertView, ViewGroup parent) 
+	    {
+			
+	    	View view = convertView;
+	        if (view == null) 
+	        {
+	        	LayoutInflater inflator = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	        	view = inflator.inflate(R.layout.list_entry, null);
 	        }
+	        
 	        Item item = items.get(position);
-	        if (item != null) {
+	        if (item != null) 
+	        {
+	        	//button creation
 	        	CheckBox inCartCheckBox = (CheckBox) view.findViewById(R.id.in_cart);
 	        	TextView nameField = (TextView) view.findViewById(R.id.item_name);
 	        	Button plusbutton = (Button) view.findViewById(R.id.increment_quantity);
 	        	TextView QuantityFielld = (TextView) view.findViewById(R.id.item_quantity);
 	        	Button minusButton = (Button) view.findViewById(R.id.decrement_quantity);
 	        	Button itemActionButton = (Button) view.findViewById(R.id.item_action_button);
+	        	
 	        	
 	        	//all fields are set using the data from each item in the item array
 	        	inCartCheckBox.setSelected(item.inCart());

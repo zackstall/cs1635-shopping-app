@@ -9,10 +9,66 @@
     tools:context=".ListActivity" >
 
     <include
+        android:id="@+id/include1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         layout="@layout/menu_bar" />
+
+    <Button
+        android:id="@+id/back_button"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/search_bar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/search_return" />
+
+    <EditText
+        android:id="@+id/search_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/search_button"
+        android:layout_toRightOf="@+id/back_button"
+        android:ems="10"
+        android:hint="@string/search_text" />
+
+    <Button
+        android:id="@+id/search_button"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/search_bar"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/search_button" />
+
+    <view
+        android:id="@+id/result_list_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/include1"
+        android:layout_alignLeft="@+id/back_button"
+        android:layout_below="@+id/back_button"
+        class="ListView" />
+    
+    <ListView
+        android:id="@+id/android:list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignBottom="@+id/result_list_view"
+        android:layout_alignTop="@+id/result_list_view" />
+    
+	<TextView
+	    android:id="@+id/android:empty"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_above="@+id/include1"
+	    android:layout_alignLeft="@+id/result_list_view"
+	    android:layout_alignTop="@+id/result_list_view"
+	    android:text="@string/list_no_items"
+	    android:textAlignment="center" />
 
 </RelativeLayout>

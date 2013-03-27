@@ -18,7 +18,7 @@
         layout="@layout/menu_bar" />
 
     <Button
-        android:id="@+id/add"
+        android:id="@+id/add_item_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/include1"
@@ -28,13 +28,13 @@
         android:text="@string/list_add_item" />
 
     <view
-        android:id="@+id/itemListView"
+        android:id="@+id/item_list_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/add"
-        android:layout_alignLeft="@+id/add"
-        android:layout_alignRight="@+id/add"
-        android:layout_below="@+id/itemListView"
+        android:layout_above="@+id/add_item_button"
+        android:layout_alignLeft="@+id/add_item_button"
+        android:layout_alignRight="@+id/add_item_button"
+        android:layout_below="@+id/item_list_view"
         class="ListView" />    
         
 
@@ -42,9 +42,9 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/itemListView"
+        android:layout_alignLeft="@+id/item_list_view"
         android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/itemListView"
+        android:layout_alignRight="@+id/item_list_view"
         android:gravity="center_vertical|center_horizontal|center"
         android:text="@string/list_title"
         android:textAppearance="?android:attr/textAppearanceLarge" />
@@ -53,15 +53,16 @@
         android:id="@+id/android:list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_alignBottom="@+id/itemListView"
+        android:layout_alignBottom="@+id/item_list_view"
         android:layout_below="@+id/title" />
-    
+
 	<TextView
 	    android:id="@+id/android:empty"
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent"
-	    android:layout_alignBottom="@+id/itemListView"
 	    android:layout_below="@+id/title"
-	    android:text="@string/list_no_items" />
+	    android:layout_centerHorizontal="true"
+	    android:text="@string/list_no_items"
+	    android:textAlignment="center" />
 
 </RelativeLayout>
