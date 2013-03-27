@@ -21,9 +21,9 @@ public class ShopListActivity extends ListActivity
 	private ArrayList<Item> itemList;	
 	private ItemAdapter itemAdapter;
 	private Button searchButton;
-	private Button listButton;
-	private Button barcodeButton;
-	private Button mapButton;
+	//private Button listButton;
+	//private Button barcodeButton;
+	//private Button mapButton;
 
 //-----------------------------------------------------------------------------------------------------------------------------
 //-- ONCREATE
@@ -45,7 +45,7 @@ public class ShopListActivity extends ListActivity
 		for(int i = 0; i < 15; i++)	itemList.add(new Item(""+i,""+i,i,i,i));
         
 		setListAdapter(itemAdapter);  
-        
+        setupMenuBarButtons(this);
         //define button listeners
         initializeButtonListeners();
 	}
@@ -61,9 +61,9 @@ public class ShopListActivity extends ListActivity
 		itemListView = getListView();
 
 		searchButton = (Button) findViewById(R.id.add_item_button);
-		listButton = (Button) findViewById(R.id.listMenuButton);
-		barcodeButton = (Button) findViewById(R.id.barcodeMenuButton);
-		mapButton = (Button) findViewById(R.id.mapMenuButton);
+		//listButton = (Button) findViewById(R.id.listMenuButton);
+		//barcodeButton = (Button) findViewById(R.id.barcodeMenuButton);
+		//mapButton = (Button) findViewById(R.id.mapMenuButton);
 	}
 	
 	private void initializeButtonListeners() 
@@ -77,24 +77,34 @@ public class ShopListActivity extends ListActivity
 			    startActivity(intent);
 			}
 		});		
-		listButton.setOnClickListener(new OnClickListener() 
-		{
+	}
+
+protected void setupMenuBarButtons(ShopListActivity activity) {
+		ImageButton listMenuButton = (ImageButton) activity.findViewById(R.id.listMenuButton);
+		ImageButton barcodeMenuButton = (ImageButton) activity.findViewById(R.id.scanMenuButton);
+		ImageButton mapMenuButton = (ImageButton) activity.findViewById(R.id.mapMenuButton);
+
+		listMenuButton.setOnClickListener(new OnClickListener(){
 			@Override
-			public void onClick(View arg0) 
-			{		
-				Intent intent = new Intent(ShopListActivity.this, ItemMenuActivity.class);
+			public void onClick(View arg0) {
+				Intent intent = new Intent(ShopListActivity.this, ShopListActivity.class);
 			    startActivity(intent);
-			}
-		});
-		barcodeButton.setOnClickListener(new OnClickListener() 
-		{
+			}});
+		
+		barcodeMenuButton.setOnClickListener(new OnClickListener(){
 			@Override
-			public void onClick(View arg0) 
-			{		
+			public void onClick(View arg0) {
+				Log.d("CLICKED", "CLICKED");
 				Intent intent = new Intent(ShopListActivity.this, BarcodeActivity.class);
 			    startActivity(intent);
-			}
-		});
+			}});
+		
+		mapMenuButton.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+				Intent intent = new Intent(ShopListActivity.this, MapActivity.class);
+			    startActivity(intent);
+			}});
 	}
 
 	@Override
@@ -131,6 +141,7 @@ public class ShopListActivity extends ListActivity
 		}
 	}
 	
+
 //-----------------------------------------------------------------------------------------------------------------------------
 //-- ITEM ADAPTER PRIVATE CLASS
 //-----------------------------------------------------------------------------------------------------------------------------
@@ -177,6 +188,7 @@ public class ShopListActivity extends ListActivity
 	        	inCartCheckBox.setSelected(item.inCart());
 	        	if (nameField != null) nameField.setText(""+item.getShortName());
 	        	if (QuantityFielld != null) QuantityFielld.setText(""+item.getQuantity());
+
 	        }
 	        return view;
 	    }

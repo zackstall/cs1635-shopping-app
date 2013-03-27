@@ -3,11 +3,13 @@ package com.shawnhanna.shop;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public abstract class ShopActivity extends Activity {
 
@@ -41,9 +43,9 @@ public abstract class ShopActivity extends Activity {
 	}
 
 	protected void setupMenuBarButtons(ShopActivity activity) {
-		Button listMenuButton = (Button) activity.findViewById(R.id.listMenuButton);
-		Button barcodeMenuButton = (Button) activity.findViewById(R.id.barcodeMenuButton);
-		Button mapMenuButton = (Button) activity.findViewById(R.id.mapMenuButton);
+		ImageButton listMenuButton = (ImageButton) activity.findViewById(R.id.listMenuButton);
+		ImageButton barcodeMenuButton = (ImageButton) activity.findViewById(R.id.scanMenuButton);
+		ImageButton mapMenuButton = (ImageButton) activity.findViewById(R.id.mapMenuButton);
 
 		listMenuButton.setOnClickListener(new OnClickListener(){
 			@Override
@@ -55,6 +57,7 @@ public abstract class ShopActivity extends Activity {
 		barcodeMenuButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {
+				Log.d("CLICKED", "CLICKED");
 				Intent intent = new Intent(ShopActivity.this, BarcodeActivity.class);
 			    startActivity(intent);
 			}});
