@@ -41,40 +41,52 @@ public abstract class ShopActivity extends Activity {
 	}
 
 	protected void setupMenuBarButtons(ShopActivity activity) {
-		Button listMenuButton = (Button) activity.findViewById(R.id.listMenuButton);
-		Button barcodeMenuButton = (Button) activity.findViewById(R.id.barcodeMenuButton);
-		Button mapMenuButton = (Button) activity.findViewById(R.id.mapMenuButton);
+		Button listMenuButton = (Button) activity
+				.findViewById(R.id.listMenuButton);
+		Button barcodeMenuButton = (Button) activity
+				.findViewById(R.id.barcodeMenuButton);
+		Button mapMenuButton = (Button) activity
+				.findViewById(R.id.mapMenuButton);
 
-		listMenuButton.setOnClickListener(new OnClickListener(){
+		listMenuButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(ShopActivity.this, ListActivity.class);
-			    startActivity(intent);
-			}});
-		
-		barcodeMenuButton.setOnClickListener(new OnClickListener(){
+				Intent intent = new Intent(ShopActivity.this,
+						ListActivity.class);
+				startActivity(intent);
+			}
+		});
+
+		barcodeMenuButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(ShopActivity.this, BarcodeActivity.class);
-			    startActivity(intent);
-			}});
-		
-		mapMenuButton.setOnClickListener(new OnClickListener(){
+				Intent intent = new Intent(ShopActivity.this,
+						BarcodeActivity.class);
+				startActivity(intent);
+			}
+		});
+
+		mapMenuButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
 				Intent intent = new Intent(ShopActivity.this, MapActivity.class);
-			    startActivity(intent);
-			}});
+				startActivity(intent);
+			}
+		});
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		//getMenuInflater().inflate(R.menu.menu, menu);
+		// getMenuInflater().inflate(R.menu.menu, menu);
 		return true;
 	}
-	
-	public boolean onOptionsItemSelected (MenuItem item) {
+
+	public boolean onOptionsItemSelected(MenuItem item) {
 		return false;
+	}
+
+	// Add a title bar to the top of the screen
+	protected void addTitle(String string) {
 	}
 }
