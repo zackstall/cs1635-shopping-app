@@ -49,10 +49,9 @@
             android:id="@+id/increment_quantity"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="30dp"
-            android:layout_height="32dp"
-            android:layout_alignBaseline="@+id/item_name"
-            android:layout_alignBottom="@+id/item_name"
-            android:layout_marginRight="14dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="18dp"
             android:layout_toLeftOf="@+id/search_add_button"
             android:text="@string/plus" />
 

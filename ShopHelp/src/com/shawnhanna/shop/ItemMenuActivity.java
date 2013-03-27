@@ -25,6 +25,10 @@ public class ItemMenuActivity  extends ShopActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_item);
 		setupMenuBarButtons(this);
+		
+		initializeViewItems();
+		
+		initializeButtonListeners();
 	}
 
 
@@ -35,9 +39,50 @@ public class ItemMenuActivity  extends ShopActivity {
 	private void initializeViewItems()
 	{
 		setContentView(R.layout.activity_item);
+		
+		removebutton = (Button) findViewById(R.id.remove_button);
+		findButton = (Button) findViewById(R.id.find_button);
+		aisleButton = (Button) findViewById(R.id.aisle_button);
+		backButton = (Button) findViewById(R.id.back_button);
 	}
 	private void initializeButtonListeners() 
 	{
+		removebutton.setOnClickListener(new OnClickListener() 
+		{
+			@Override
+			public void onClick(View arg0) 
+			{		
+				Intent intent = new Intent(ItemMenuActivity.this, ShopListActivity.class);
+			    startActivity(intent);
+			}
+		});	
+		findButton.setOnClickListener(new OnClickListener() 
+		{
+			@Override
+			public void onClick(View arg0) 
+			{		
+				Intent intent = new Intent(ItemMenuActivity.this, MapActivity.class);
+			    startActivity(intent);
+			}
+		});	
+		aisleButton.setOnClickListener(new OnClickListener() 
+		{
+			@Override
+			public void onClick(View arg0) 
+			{		
+				Intent intent = new Intent(ItemMenuActivity.this, AisleViewActivity.class);
+			    startActivity(intent);
+			}
+		});	
+		backButton.setOnClickListener(new OnClickListener() 
+		{
+			@Override
+			public void onClick(View arg0) 
+			{		
+				Intent intent = new Intent(ItemMenuActivity.this, ShopListActivity.class);
+			    startActivity(intent);
+			}
+		});	
 		
 	}
 }

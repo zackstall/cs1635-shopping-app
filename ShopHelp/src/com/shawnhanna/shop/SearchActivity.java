@@ -135,7 +135,7 @@ public class SearchActivity  extends ListActivity {
 	        if (view == null) 
 	        {
 	        	LayoutInflater inflator = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	        	view = inflator.inflate(R.layout.list_entry, null);
+	        	view = inflator.inflate(R.layout.search_list_entry, null);
 	        }
 	        
 	        Item item = items.get(position);
