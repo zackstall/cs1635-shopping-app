@@ -56,7 +56,8 @@ public class ShopListActivity extends ListActivity
 	private void initializeViewItems()
 	{
 		setContentView(R.layout.activity_list);
-		itemListView = (ListView) findViewById( R.id.item_list_view );
+		//itemListView = (ListView) findViewById( R.id.item_list_view );
+		itemListView = getListView();
 
 		searchButton = (Button) findViewById(R.id.add_item_button);
 		listButton = (Button) findViewById(R.id.listMenuButton);
@@ -80,7 +81,8 @@ public class ShopListActivity extends ListActivity
 			@Override
 			public void onClick(View arg0) 
 			{		
-				//do nothing
+				Intent intent = new Intent(ShopListActivity.this, ItemMenuActivity.class);
+			    startActivity(intent);
 			}
 		});
 		barcodeButton.setOnClickListener(new OnClickListener() 
@@ -101,6 +103,12 @@ public class ShopListActivity extends ListActivity
 			    startActivity(intent);
 			}
 		});
+	}
+	
+	public void onListItemClick(ListView l, View v, int position, long id)
+	{
+		 super.onListItemClick(l, v, position, id);
+	     Toast.makeText(this, "Position: "+position, position).show();
 	}
 
 //-----------------------------------------------------------------------------------------------------------------------------

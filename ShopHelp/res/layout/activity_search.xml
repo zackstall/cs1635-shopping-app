@@ -24,7 +24,7 @@
         android:layout_alignBottom="@+id/search_bar"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="@string/search_return" />
+        android:text="@string/activity_return" />
 
     <EditText
         android:id="@+id/search_bar"
