@@ -1,4 +1,7 @@
 package com.shawnhanna.shop;
+
+import java.io.Serializable;
+
 /*
  * CLASS DESCRIPTION
  * This class is used to store item information and status after a query is performed.
@@ -6,7 +9,7 @@ package com.shawnhanna.shop;
  * variables only have accessors, and not manipulators because their values must match
  * the server values
  */
-public class Item {
+public class Item implements Serializable{
 	private String name;
 	private String shortName;
 	private double price;
@@ -22,7 +25,7 @@ public class Item {
 		price = newPrice;
 		barcode = newBarcode;
 		locationID = newLocationID;
-		quantity = 0;
+		quantity = 1;
 		inCart = false;
 	}
 	

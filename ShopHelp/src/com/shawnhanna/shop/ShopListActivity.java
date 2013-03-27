@@ -1,5 +1,6 @@
 package com.shawnhanna.shop;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import android.app.ListActivity;
@@ -13,7 +14,7 @@ import android.widget.*;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.view.View.OnClickListener;
 
-public class ShopListActivity extends ListActivity
+public class ShopListActivity extends ListActivity implements Serializable
 {
 	static final String TAG="ListActivity";
 	
@@ -21,6 +22,7 @@ public class ShopListActivity extends ListActivity
 	private ArrayList<Item> itemList;	
 	private ItemAdapter itemAdapter;
 	private Button searchButton;
+	
 	//private Button listButton;
 	//private Button barcodeButton;
 	//private Button mapButton;
@@ -38,12 +40,16 @@ public class ShopListActivity extends ListActivity
 
 		//initializes views and buttons
         initializeViewItems();
-		
+        Intent intent = getIntent();
+		itemList = (ArrayList<Item>)intent.getSerializableExtra("com.shawnhanna.shop.LIST");
 		//NOTE: this is just temporary until we get the DB set up
-		itemList = new ArrayList<Item>();
+		if(itemList == null)itemList = new ArrayList<Item>();
+		
         itemAdapter = new ItemAdapter(this, R.layout.list_entry, itemList);
-		for(int i = 0; i < 15; i++)	itemList.add(new Item(""+i,""+i,i,i,i));
-        
+        //itemList.add(new Item("Ruffles Potato Chips","Potato Chips",3.99,123456, 4));
+		//itemList.add(new Item("Shneiders 2% Milk","2% Milk",3.59,123457,9));
+		//itemList.add(new Item("Jiffy Peanut Butter","Peanut Butter",4.25,123458, 3));
+		//itemList.add(new Item("Coca-Cola","Pop",2.24,123459, 2));
 		setListAdapter(itemAdapter);  
         setupMenuBarButtons(this);
         //define button listeners
@@ -74,7 +80,8 @@ public class ShopListActivity extends ListActivity
 			public void onClick(View arg0) 
 			{
 				Intent intent = new Intent(ShopListActivity.this, SearchActivity.class);
-			    startActivity(intent);
+				intent.putExtra("com.shawnhanna.shop.LIST", itemList);
+				startActivity(intent);
 			}
 		});		
 	}
@@ -88,7 +95,8 @@ protected void setupMenuBarButtons(ShopListActivity activity) {
 			@Override
 			public void onClick(View arg0) {
 				Intent intent = new Intent(ShopListActivity.this, ShopListActivity.class);
-			    startActivity(intent);
+				intent.putExtra("com.shawnhanna.shop.LIST", itemList);
+				startActivity(intent);
 			}});
 		
 		barcodeMenuButton.setOnClickListener(new OnClickListener(){
@@ -96,6 +104,7 @@ protected void setupMenuBarButtons(ShopListActivity activity) {
 			public void onClick(View arg0) {
 				Log.d("CLICKED", "CLICKED");
 				Intent intent = new Intent(ShopListActivity.this, BarcodeActivity.class);
+				intent.putExtra("com.shawnhanna.shop.LIST", itemList);
 			    startActivity(intent);
 			}});
 		
@@ -103,6 +112,7 @@ protected void setupMenuBarButtons(ShopListActivity activity) {
 			@Override
 			public void onClick(View arg0) {
 				Intent intent = new Intent(ShopListActivity.this, MapActivity.class);
+				intent.putExtra("com.shawnhanna.shop.LIST", itemList);
 			    startActivity(intent);
 			}});
 	}
@@ -116,7 +126,10 @@ protected void setupMenuBarButtons(ShopListActivity activity) {
 		Log.d("----NOTE", "were in");
 		if(view.getTag()==null)
 		{
-			Log.d("----NOTE", "tag is null");		
+			Log.d("----NOTE", "tag is null");
+			intent.putExtra("com.shawnhanna.shop.ITEM", itemList.get(position));
+			intent.putExtra("com.shawnhanna.shop.LIST", itemList);
+			startActivity(intent);
 		}
 		else if(((String)view.getTag()).equals("MENU"))
 		{
