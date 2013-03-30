@@ -8,12 +8,14 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
 import android.util.Base64InputStream;
 import android.util.Base64OutputStream;
+import android.util.Log;
 
 /**
  * 
@@ -21,10 +23,12 @@ import android.util.Base64OutputStream;
  *	This is a singleton storage class that stores to the internal file storage
  */
 public class DataService {
-	Lock cartLock;
-	Lock dbLock;
-	ArrayList<Item> db;
-	ArrayList<Item> cartList;
+	private static final String TAG = "DataService";
+	
+	Lock cartLock = new ReentrantLock();
+	Lock dbLock = new ReentrantLock();
+	ArrayList<Item> db = new ArrayList<Item>(50);
+	ArrayList<Item> cartList = new ArrayList<Item>(50);
 	
 	private static DataService singleton;
 
@@ -46,6 +50,14 @@ public class DataService {
 		cartLock.unlock();
 		return retList;
 	}
+
+	public ArrayList<Item> getDB() {
+		cartLock.lock();
+		@SuppressWarnings("unchecked")
+		ArrayList<Item> retList = (ArrayList<Item>) db.clone();
+		cartLock.unlock();
+		return retList;
+	}
 	
 	public void addToCart(Item item) {
 		cartLock.lock();
@@ -53,7 +65,7 @@ public class DataService {
 		cartLock.unlock();
 	}
 
-	public void addToDatabase(Item item) {
+	public void addToDB(Item item) {
 		dbLock.lock();
 		db.add(item);
 		dbLock.unlock();
@@ -77,9 +89,10 @@ public class DataService {
 	
 	@SuppressWarnings("unchecked")
 	protected void load() {
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ShopActivity.getContext());
-		cartList = (ArrayList<Item>) stringToObject(prefs.getString("cartList", null));
-		db = (ArrayList<Item>) stringToObject(prefs.getString("db", null));
+		//SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ShopActivity.getContext());
+		//if (prefs.getString("cartList", null) != null)
+			//cartList = (ArrayList<Item>) stringToObject(prefs.getString("cartList", null));
+		//db = (ArrayList<Item>) stringToObject(prefs.getString("db", null));
 	}
 	
 	public boolean inCart(Item item) {
@@ -114,6 +127,10 @@ public class DataService {
 	}
 
 	public static Object stringToObject(String encodedObject) {
+		if (encodedObject == null) {
+			Log.d(TAG, "could not create object... string is null");
+			return null;
+		}
 	    try {
 	        return new ObjectInputStream(new Base64InputStream(
 	                new ByteArrayInputStream(encodedObject.getBytes()), 0)).readObject();

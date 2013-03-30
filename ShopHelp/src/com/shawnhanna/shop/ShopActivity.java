@@ -19,7 +19,6 @@ public abstract class ShopActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		ShopActivity.context = getApplicationContext();
-		
 	}
 
 	protected void onStart() {
