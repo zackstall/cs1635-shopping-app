@@ -41,7 +41,7 @@ public class SearchActivity extends ListActivity {
 		db.addToDB(new Item("Shneiders 2% Milk", "2% Milk", 3.59, 123457, 9));
 		db.addToDB(new Item("Jiffy Peanut Butter", "Peanut Butter", 4.25,
 				123458, 3));
-		db.addToCart(new Item("Coca-Cola", "Pop", 2.24, 123459, 2));
+		db.addToDB(new Item("Coca-Cola", "Pop", 2.24, 123459, 2));
 
 		resultAdapter = new ResultAdapter(this, R.layout.search_list_entry,
 				db.getDB());

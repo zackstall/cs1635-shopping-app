@@ -19,17 +19,18 @@ import android.util.Log;
 
 /**
  * 
- * @author Shawn
- *	This is a singleton storage class that stores to the internal file storage
+ * @author Shawn -
+ * @brief This is a singleton storage class that stores to the internal file
+ *        storage
  */
 public class DataService {
 	private static final String TAG = "DataService";
-	
+
 	Lock cartLock = new ReentrantLock();
 	Lock dbLock = new ReentrantLock();
 	ArrayList<Item> db = new ArrayList<Item>(50);
 	ArrayList<Item> cartList = new ArrayList<Item>(50);
-	
+
 	private static DataService singleton;
 
 	private DataService() {
@@ -37,8 +38,8 @@ public class DataService {
 
 	public static synchronized DataService getInstance() {
 		if (DataService.singleton == null) {
-			 singleton = new DataService();
-			 singleton.load();
+			singleton = new DataService();
+			singleton.load();
 		}
 		return singleton;
 	}
@@ -52,78 +53,104 @@ public class DataService {
 	}
 
 	public ArrayList<Item> getDB() {
-		cartLock.lock();
+		dbLock.lock();
 		@SuppressWarnings("unchecked")
 		ArrayList<Item> retList = (ArrayList<Item>) db.clone();
-		cartLock.unlock();
+		dbLock.unlock();
 		return retList;
 	}
-	
+
 	public void addToCart(Item item) {
 		cartLock.lock();
-		cartList.add(item);
+		if (!this.inCart(item))
+			cartList.add(item);
 		cartLock.unlock();
 	}
 
 	public void addToDB(Item item) {
 		dbLock.lock();
-		db.add(item);
+		if (!this.inDB(item))
+			db.add(item);
 		dbLock.unlock();
 	}
-	
-	/**
-	 * saves the data so it is persistent even after being destroyed by the OS
-	 * Call this when the application is about to be destroyed
-	 */
-	public void save() {
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ShopActivity.getContext());
-		Editor editor = prefs.edit();
-		editor.putString("cartList", objectToString(cartList));
-		editor.putString("db", objectToString(db));
-		editor.commit();
+
+	private boolean inDB(Item item) {
+		for (int i = 0; i < db.size(); i++) {
+			if (db.get(i).equals(item)) {
+				return true;
+			}
+		}
+		return false;
 	}
-	
-	public Editor getPreferenceEditor() {
-		return PreferenceManager.getDefaultSharedPreferences(ShopActivity.getContext()).edit();
-	}
-	
-	@SuppressWarnings("unchecked")
-	protected void load() {
-		//SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ShopActivity.getContext());
-		//if (prefs.getString("cartList", null) != null)
-			//cartList = (ArrayList<Item>) stringToObject(prefs.getString("cartList", null));
-		//db = (ArrayList<Item>) stringToObject(prefs.getString("db", null));
-	}
-	
+
 	public boolean inCart(Item item) {
-		for (int i = 0; i<cartList.size(); i++) {
+		for (int i = 0; i < cartList.size(); i++) {
 			if (cartList.get(i).equals(item)) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
+	/**
+	 * saves the data so it is persistent even after being destroyed by the OS
+	 * Call this when the application is about to be destroyed
+	 */
+	public void save() {
+		SharedPreferences prefs = PreferenceManager
+				.getDefaultSharedPreferences(ShopActivity.getContext());
+		Editor editor = prefs.edit();
+		editor.putString("cartList", objectToString(cartList));
+		editor.putString("db", objectToString(db));
+		editor.commit();
+	}
+
+	@SuppressWarnings("unchecked")
+	protected void load() {
+		// SharedPreferences prefs =
+		// PreferenceManager.getDefaultSharedPreferences(ShopActivity.getContext());
+		// if (prefs.getString("cartList", null) != null)
+		// cartList = (ArrayList<Item>)
+		// stringToObject(prefs.getString("cartList", null));
+		// db = (ArrayList<Item>) stringToObject(prefs.getString("db", null));
+	}
+
+	public Editor getPreferenceEditor() {
+		return PreferenceManager.getDefaultSharedPreferences(
+				ShopActivity.getContext()).edit();
+	}
+
 	public void syncToServer() {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
-	
+
+	public ArrayList<Item> searchDBByName(String string){
+		ArrayList<Item> ret = new ArrayList<Item>(db.size());
+		for (int i=0;i<db.size();i++) {
+			Item item = db.get(i);
+			if (item.getName().contains((string))) {
+				ret.add(item);
+			}
+		}
+		return ret;
+	}
+
 	private static String objectToString(Serializable object) {
-	    ByteArrayOutputStream out = new ByteArrayOutputStream();
-	    try {
-	        new ObjectOutputStream(out).writeObject(object);
-	        byte[] data = out.toByteArray();
-	        out.close();
-	        out = new ByteArrayOutputStream();
-	        Base64OutputStream b64 = new Base64OutputStream(out, 0);
-	        b64.write(data);
-	        b64.close();
-	        out.close();
-	        return new String(out.toByteArray());
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    }
-	    return null;
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		try {
+			new ObjectOutputStream(out).writeObject(object);
+			byte[] data = out.toByteArray();
+			out.close();
+			out = new ByteArrayOutputStream();
+			Base64OutputStream b64 = new Base64OutputStream(out, 0);
+			b64.write(data);
+			b64.close();
+			out.close();
+			return new String(out.toByteArray());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public static Object stringToObject(String encodedObject) {
@@ -131,12 +158,13 @@ public class DataService {
 			Log.d(TAG, "could not create object... string is null");
 			return null;
 		}
-	    try {
-	        return new ObjectInputStream(new Base64InputStream(
-	                new ByteArrayInputStream(encodedObject.getBytes()), 0)).readObject();
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	    return null;
+		try {
+			return new ObjectInputStream(new Base64InputStream(
+					new ByteArrayInputStream(encodedObject.getBytes()), 0))
+					.readObject();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

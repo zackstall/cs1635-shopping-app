@@ -60,9 +60,6 @@ public class ShopListActivity extends ListActivity {
 		setContentView(R.layout.activity_list);
 
 		searchButton = (Button) findViewById(R.id.add_item_button);
-		// listButton = (Button) findViewById(R.id.listMenuButton);
-		// barcodeButton = (Button) findViewById(R.id.barcodeMenuButton);
-		// mapButton = (Button) findViewById(R.id.mapMenuButton);
 	}
 
 	private void initializeButtonListeners() {
@@ -71,7 +68,6 @@ public class ShopListActivity extends ListActivity {
 			public void onClick(View arg0) {
 				Intent intent = new Intent(ShopListActivity.this,
 						SearchActivity.class);
-				intent.putExtra("com.shawnhanna.shop.LIST", itemList);
 				startActivity(intent);
 			}
 		});
@@ -82,15 +78,8 @@ public class ShopListActivity extends ListActivity {
 			long id) {
 		Intent intent = new Intent(ShopListActivity.this,
 				ItemMenuActivity.class);
+		intent.putExtra("com.shawnhanna.shop.ITEM", itemList.get(position));
 		startActivity(intent);
-		Log.d("----NOTE", "were in");
-		if (view.getTag() == null) {
-			Log.d("----NOTE", "tag is null");
-			intent.putExtra("com.shawnhanna.shop.ITEM", itemList.get(position));
-			startActivity(intent);
-		} else {
-			Log.d("----NOTE", "no valid tag");
-		}
 	}
 
 	// -----------------------------------------------------------------------------------------------------------------------------
