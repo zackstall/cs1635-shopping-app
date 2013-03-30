@@ -105,8 +105,14 @@ public class DataService {
 		editor.commit();
 	}
 
-	@SuppressWarnings("unchecked")
 	protected void load() {
+		addToDB(new Item("Ruffles Potato Chips", "Potato Chips", 3.99, 123456,
+				4));
+		addToDB(new Item("Schneiders 2% Milk", "2% Milk", 3.59, 123457, 9));
+		addToDB(new Item("Jiffy Peanut Butter", "Peanut Butter", 4.25, 123458,
+				3));
+		addToDB(new Item("Coca-Cola", "Pop", 2.24, 123459, 2));
+
 		// SharedPreferences prefs =
 		// PreferenceManager.getDefaultSharedPreferences(ShopActivity.getContext());
 		// if (prefs.getString("cartList", null) != null)
@@ -124,11 +130,11 @@ public class DataService {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
 
-	public ArrayList<Item> searchDBByName(String string){
+	public ArrayList<Item> searchDBByName(String string) {
 		ArrayList<Item> ret = new ArrayList<Item>(db.size());
-		for (int i=0;i<db.size();i++) {
+		for (int i = 0; i < db.size(); i++) {
 			Item item = db.get(i);
-			if (item.getName().contains((string))) {
+			if (item.getName().contains((string)) || item.getShortName().contains(string)) {
 				ret.add(item);
 			}
 		}

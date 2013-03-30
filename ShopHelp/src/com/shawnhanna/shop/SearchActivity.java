@@ -1,16 +1,20 @@
 package com.shawnhanna.shop;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.*;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.*;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.TextView;
 
 public class SearchActivity extends ListActivity {
 	static final String TAG = "ListActivity";
@@ -36,17 +40,9 @@ public class SearchActivity extends ListActivity {
 		// for(int i = 0; i < 15; i++) resultList.add(new
 		// Item(""+i,""+i,i,i,i));
 		DataService db = DataService.getInstance();
-		db.addToDB(new Item("Ruffles Potato Chips", "Potato Chips", 3.99,
-				123456, 4));
-		db.addToDB(new Item("Shneiders 2% Milk", "2% Milk", 3.59, 123457, 9));
-		db.addToDB(new Item("Jiffy Peanut Butter", "Peanut Butter", 4.25,
-				123458, 3));
-		db.addToDB(new Item("Coca-Cola", "Pop", 2.24, 123459, 2));
-
 		resultAdapter = new ResultAdapter(this, R.layout.search_list_entry,
 				db.getDB());
 
-		Intent intent = getIntent();
 		itemList = db.getCart();
 		setListAdapter(resultAdapter);
 
@@ -148,7 +144,6 @@ public class SearchActivity extends ListActivity {
 			this.items = items;
 		}
 
-		@SuppressWarnings("unchecked")
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -163,14 +158,8 @@ public class SearchActivity extends ListActivity {
 				// button creation
 				TextView nameField = (TextView) view
 						.findViewById(R.id.item_name);
-				Button plusbutton = (Button) view
-						.findViewById(R.id.increment_quantity);
 				TextView QuantityFielld = (TextView) view
 						.findViewById(R.id.item_quantity);
-				Button minusButton = (Button) view
-						.findViewById(R.id.decrement_quantity);
-				Button addItemButton = (Button) view
-						.findViewById(R.id.search_add_button);
 
 				// all fields are set using the data from each item in the item
 				// array

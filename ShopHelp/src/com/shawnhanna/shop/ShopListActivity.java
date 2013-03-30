@@ -1,18 +1,20 @@
 package com.shawnhanna.shop;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import android.app.ListActivity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.*;
-import android.widget.*;
-import android.widget.AdapterView.OnItemSelectedListener;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.ListView;
+import android.widget.TextView;
 
 public class ShopListActivity extends ListActivity {
 	static final String TAG = "ListActivity";
@@ -21,15 +23,10 @@ public class ShopListActivity extends ListActivity {
 	private ItemAdapter itemAdapter;
 	private Button searchButton;
 
-	// private Button listButton;
-	// private Button barcodeButton;
-	// private Button mapButton;
-
 	// -----------------------------------------------------------------------------------------------------------------------------
 	// -- ONCREATE
 	// -----------------------------------------------------------------------------------------------------------------------------
 
-	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// the static items must be created
@@ -40,12 +37,6 @@ public class ShopListActivity extends ListActivity {
 		itemList = DataService.getInstance().getCart();
 
 		itemAdapter = new ItemAdapter(this, R.layout.list_entry, itemList);
-		// itemList.add(new
-		// Item("Ruffles Potato Chips","Potato Chips",3.99,123456, 4));
-		// itemList.add(new Item("Shneiders 2% Milk","2% Milk",3.59,123457,9));
-		// itemList.add(new
-		// Item("Jiffy Peanut Butter","Peanut Butter",4.25,123458, 3));
-		// itemList.add(new Item("Coca-Cola","Pop",2.24,123459, 2));
 		setListAdapter(itemAdapter);
 		ShopActivity.setupMenuBarButtons(this);
 		// define button listeners
