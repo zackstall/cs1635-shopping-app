@@ -5,7 +5,7 @@ import java.io.Serializable;
 /*
  * CLASS DESCRIPTION
  * This class is used to store item information and status after a query is performed.
- * inCart, and quantity MUST be tracked and pushed back to the server. The other class
+ * quantity MUST be tracked and pushed back to the server. The other class
  * variables only have accessors, and not manipulators because their values must match
  * the server values
  */
@@ -16,7 +16,6 @@ public class Item implements Serializable{
 	private double barcode; //NOTE: I dont actually know how barcodes are stored - john, 3/25
 	int quantity;
 	int locationID;
-	boolean inCart;
 	
 	//all items are initialized from the parameters, but quantity is set to 0, and inCart is set to false
 	public Item (String newName, String newShortName, double newPrice, double newBarcode, int newLocationID){
@@ -26,7 +25,6 @@ public class Item implements Serializable{
 		barcode = newBarcode;
 		locationID = newLocationID;
 		quantity = 1;
-		inCart = false;
 	}
 	
 	public Item(){
@@ -35,8 +33,7 @@ public class Item implements Serializable{
 		price = -1;
 		barcode = -1;
 		locationID = -1;
-		quantity = 0;
-		inCart = false;
+		quantity = -1;
 	}
 	
 	public String getName(){
@@ -72,13 +69,19 @@ public class Item implements Serializable{
 		return quantity;
 	}
 	
-	public boolean addToCart(){
-		return inCart = true;
-	}
-	public boolean removeFromCart(){
-		return inCart = false;
-	}
-	public boolean inCart(){
-		return inCart;
+	@Override
+	public boolean equals(Object other){
+	    if (!(other instanceof Item))
+	    	return false;
+	    Item otherItem = (Item)other;
+	    if (otherItem.getPrice() != getPrice())
+	    	return false;
+	    if (otherItem.getBarcode() != getBarcode())
+	    	return false;
+	    if (otherItem.getLocationID() != getLocationID())
+	    	return false;
+	    if (otherItem.getName() != getName())
+	    	return false;
+		return true;
 	}
 }

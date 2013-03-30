@@ -148,7 +148,7 @@ public class ShopListActivity extends ListActivity implements Serializable
 	        	itemActionButton.setTag("MENU");
 	        	
 	        	//all fields are set using the data from each item in the item array
-	        	inCartCheckBox.setSelected(item.inCart());
+	        	inCartCheckBox.setSelected(DataService.getInstance().inCart(item));
 	        	if (nameField != null) nameField.setText(""+item.getShortName());
 	        	if (QuantityFielld != null) QuantityFielld.setText(""+item.getQuantity());
 

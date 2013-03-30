@@ -12,34 +12,36 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
-        	android:theme="@android:style/Theme.NoTitleBar"
-            android:name="com.shawnhanna.shop.ShopListActivity" >
+            android:name="com.shawnhanna.shop.ShopListActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-        	android:theme="@android:style/Theme.NoTitleBar"
-            android:name="com.shawnhanna.shop.MapActivity" >
+            android:name="com.shawnhanna.shop.MapActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <activity
-        	android:theme="@android:style/Theme.NoTitleBar"
-            android:name="com.shawnhanna.shop.BarcodeActivity" >
+            android:name="com.shawnhanna.shop.BarcodeActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <activity
-        	android:theme="@android:style/Theme.NoTitleBar"
-            android:name="com.shawnhanna.shop.SearchActivity" >
+            android:name="com.shawnhanna.shop.SearchActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <activity
-        	android:theme="@android:style/Theme.NoTitleBar"
-            android:name="com.shawnhanna.shop.AisleViewActivity" >
+            android:name="com.shawnhanna.shop.AisleViewActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <activity
-        	android:theme="@android:style/Theme.NoTitleBar"
-            android:name="com.shawnhanna.shop.ItemMenuActivity" >
+            android:name="com.shawnhanna.shop.ItemMenuActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
     </application>
+
 </manifest>
