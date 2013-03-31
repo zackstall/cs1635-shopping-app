@@ -92,6 +92,26 @@ public class DataService {
 		return false;
 	}
 
+	public boolean incrementItem(Item item) {
+		for (int i = 0; i < cartList.size(); i++) {
+			if (cartList.get(i).equals(item)) {
+				cartList.get(i).incrementQuantity();
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean decrementItem(Item item) {
+		for (int i = 0; i < cartList.size(); i++) {
+			if (cartList.get(i).equals(item)) {
+				cartList.get(i).decrementQuantity();
+				return true;
+			}
+		}
+		return false;
+	}
+
 	/**
 	 * saves the data so it is persistent even after being destroyed by the OS
 	 * Call this when the application is about to be destroyed
@@ -134,7 +154,8 @@ public class DataService {
 		ArrayList<Item> ret = new ArrayList<Item>(db.size());
 		for (int i = 0; i < db.size(); i++) {
 			Item item = db.get(i);
-			if (item.getName().contains((string)) || item.getShortName().contains(string)) {
+			if (item.getName().contains((string))
+					|| item.getShortName().contains(string)) {
 				ret.add(item);
 			}
 		}

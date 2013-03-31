@@ -21,7 +21,6 @@ import android.widget.TextView;
 public class ShopListActivity extends ShopActivity {
 	static final String TAG = "ListActivity";
 
-	private ArrayList<Item> itemList;
 	private Button searchButton;
 
 	// -----------------------------------------------------------------------------------------------------------------------------
@@ -35,7 +34,7 @@ public class ShopListActivity extends ShopActivity {
 
 		// initializes views and buttons
 		initializeViewItems();
-		itemList = DataService.getInstance().getCart();
+		ArrayList<Item> itemList = DataService.getInstance().getCart();
 		// NOTE: this is just temporary until we get the DB set up
 		if (itemList == null)
 			itemList = new ArrayList<Item>();
@@ -58,9 +57,9 @@ public class ShopListActivity extends ShopActivity {
 				} else if (((String) view.getTag()).equals("CBOX")) {
 					// do nothing for now
 				} else if (((String) view.getTag()).equals("ADD")) {
-					itemList.get(position).incrementQuantity();
+					//itemList.get(position).incrementQuantity();
 				} else if (((String) view.getTag()).equals("SUB")) {
-					itemList.get(position).decrementQuantity();
+					//itemList.get(position).decrementQuantity();
 				} else {
 					Log.d("----NOTE", "no valid tag");
 				}

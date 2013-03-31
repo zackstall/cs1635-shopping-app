@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -81,7 +82,11 @@ public class SearchActivity extends ShopActivity {
 		searchButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				// do nothing for now
+				EditText text = (EditText)findViewById(R.id.search_bar);
+				ArrayList<Item> items = DataService.getInstance().searchDBByName(text.getText().toString());
+				ResultAdapter itemAdapter = new ResultAdapter(SearchActivity.this, R.layout.list_entry, items);
+				ListView lv = (ListView) findViewById(R.id.listList);
+				lv.setAdapter(itemAdapter);
 			}
 		});
 	}

@@ -9,7 +9,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class ItemMenuActivity  extends ShopActivity {
+public class ItemMenuActivity extends ShopActivity {
 	static final String TAG="ItemMenuActivity";
 	
 	private Button removebutton;
