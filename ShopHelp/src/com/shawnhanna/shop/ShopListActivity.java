@@ -123,7 +123,7 @@ public class ShopListActivity extends ShopActivity {
 				
 				// all fields are set using the data from each item in the item
 				// array
-				inCartCheckBox.setSelected(DataService.getInstance().inCart(item));
+				inCartCheckBox.setSelected(item.getChecked());
 				if (nameField != null)
 					nameField.setText("" + item.getShortName());
 				if (quantityField != null)
@@ -133,7 +133,7 @@ public class ShopListActivity extends ShopActivity {
 			return view;
 		}
 		
-private void setUpAdapterListeners(Button incrementButton, Button decrementButton, Button itemActionButton, CheckBox inCartCheckBox, final TextView nameField) {
+		private void setUpAdapterListeners(Button incrementButton, Button decrementButton, Button itemActionButton, CheckBox inCartCheckBox, final TextView nameField) {
 			
 			incrementButton.setOnClickListener(new OnClickListener() {
 				@Override
@@ -150,10 +150,20 @@ private void setUpAdapterListeners(Button incrementButton, Button decrementButto
 				@Override
 				public void onClick(View arg0) {
 					DataService dataService = DataService.getInstance();
+					Item item = items.get((Integer) nameField.getTag());
 					if((Integer) nameField.getTag()<items.size()){
-						dataService.decrementItem(items.get((Integer) nameField.getTag()));
-						refreshList();
+						dataService.decrementItem(item);
+						
+						if(item.getQuantity()==0){
+							dataService.removeFromCart(item);						
+							//TODO: fix this desperate workaround and force refresh
+							Intent intent = new Intent(ShopListActivity.this, ShopListActivity.class);
+							startActivity(intent);
+
+						}
 					}
+					notifyDataSetChanged();
+					refreshList();
 				}
 			});
 			
@@ -166,20 +176,15 @@ private void setUpAdapterListeners(Button incrementButton, Button decrementButto
 				}
 			});
 			
+			//TODO: make this work
 			inCartCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener()
 			{
 			    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
 			    {
-			        if ( isChecked )
-			        {
-			        	DataService dataService = DataService.getInstance();
-						if((Integer) nameField.getTag()<items.size()){
-							items.get((Integer) nameField.getTag()).invertCheck();
-							refreshList();
-						}
-
-			        }
-
+			       	DataService dataService = DataService.getInstance();
+					if((Integer) nameField.getTag()<items.size()){
+						items.get((Integer) nameField.getTag()).invertCheck();
+					}
 			    }
 			});
 		}

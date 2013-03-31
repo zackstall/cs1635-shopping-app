@@ -45,25 +45,11 @@ public class SearchActivity extends ShopActivity {
 		DataService db = DataService.getInstance();
 
 		//the initial result list should be empty
-		currentResults = new ArrayList<Item>(db.getDB());
+		currentResults = new ArrayList<Item>(db.getDBMinusCart());
 		resultAdapter = new ResultAdapter(this, R.layout.search_list_entry, currentResults);
 
 		listView = (ListView) findViewById(R.id.searchList);
 		listView.setAdapter(resultAdapter);
-		
-		listView.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View view,
-					int position, long id) {
-				ArrayList<Item> resultList = DataService.getInstance().getDB();
-				Log.d("POS", "POS " + position);
-				Log.d("POS", "POS " + resultList.get(position).getName());
-				DataService.getInstance().addToCart(resultList.get(position));
-
-				Intent intent = new Intent(SearchActivity.this,	ShopListActivity.class);
-				startActivity(intent);
-			}
-		});
 
 		initializeButtonListeners();
 	}
@@ -83,7 +69,7 @@ public class SearchActivity extends ShopActivity {
 	private void initializeButtonListeners() {
 			searchBar.addTextChangedListener(new TextWatcher() {
 				
-				//only one of these is necessary, but they all nned to be implemented
+				//only one of these is necessary, but they all need to be implemented
 				@Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 				@Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
@@ -91,7 +77,7 @@ public class SearchActivity extends ShopActivity {
 				public void afterTextChanged(Editable s) {
 					currentResults.clear();
 					//TODO: ignore items in that are in the cart
-					ArrayList<Item> resultList = DataService.getInstance().searchDBByName(searchBar.getText().toString());
+					ArrayList<Item> resultList = DataService.getInstance().searchDBByNameIgnoreCart(searchBar.getText().toString());
 					currentResults.addAll(resultList);	
 					resultAdapter.notifyDataSetChanged();				
 				}
@@ -105,7 +91,7 @@ public class SearchActivity extends ShopActivity {
 			}
 		});
 		
-		//relic, still deciding ono its fate -john 3/30
+		//relic, still deciding on its fate -john 3/30
 		searchButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
@@ -179,7 +165,9 @@ public class SearchActivity extends ShopActivity {
 				@Override
 				public void onClick(View arg0) {
 					if((Integer) nameField.getTag()<items.size()){
-						items.get((Integer) nameField.getTag()).decrementQuantity();
+						if(items.get((Integer) nameField.getTag()).getQuantity()>1){
+							items.get((Integer) nameField.getTag()).decrementQuantity();
+						}
 						notifyDataSetChanged();
 					}
 				}
@@ -192,7 +180,11 @@ public class SearchActivity extends ShopActivity {
 					
 					if((Integer) nameField.getTag()<items.size()){
 						db.addToCart(items.get((Integer) nameField.getTag()));
-						SearchActivity.this.finish();
+						
+						//TODO: fix this desperate workaround and force refresh in shoplist
+						//SearchActivity.this.finish();
+						Intent intent = new Intent(SearchActivity.this, ShopListActivity.class);
+						startActivity(intent);
 					}
 				}
 			});

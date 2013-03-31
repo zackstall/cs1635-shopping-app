@@ -60,6 +60,15 @@ public class DataService {
 		dbLock.unlock();
 		return retList;
 	}
+	
+	//this is not very efficient, feel free to change it if you have time - john 3/30
+	public ArrayList<Item> getDBMinusCart(){
+		ArrayList<Item> newArray = new ArrayList<Item>();
+		for(int i = 0; i < db.size(); i++){
+			if(!cartList.contains(db.get(i))) newArray.add(db.get(i));
+		}
+		return newArray;
+	}
 
 	public void addToCart(Item item) {
 		cartLock.lock();
@@ -73,6 +82,15 @@ public class DataService {
 		if (!this.inDB(item))
 			db.add(item);
 		dbLock.unlock();
+	}
+	
+	public void removeFromCart(Item item) {
+		cartLock.lock();
+		if (this.inCart(item)){
+			item.setQuantity(1);
+			cartList.remove(item);
+		}
+		cartLock.unlock();
 	}
 
 	private boolean inDB(Item item) {
@@ -107,6 +125,16 @@ public class DataService {
 		for (int i = 0; i < cartList.size(); i++) {
 			if (cartList.get(i).equals(item)) {
 				cartList.get(i).decrementQuantity();
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean replaceInCart(Item item) {
+		for (int i = 0; i < cartList.size(); i++) {
+			if (cartList.get(i).equals(item)) {
+				cartList.set(i, item);
 				return true;
 			}
 		}
@@ -173,6 +201,21 @@ public class DataService {
 		}
 		return ret;
 	}
+
+	public ArrayList<Item> searchDBByNameIgnoreCart(String string) {
+		ArrayList<Item> availableItems = new ArrayList<Item>(getDBMinusCart());
+		ArrayList<Item> ret = new ArrayList<Item>(availableItems.size());
+		for (int i = 0; i < availableItems.size(); i++) {
+			Item item = availableItems.get(i);
+			if (item.getName().toUpperCase().contains((string.toUpperCase()))
+					|| item.getShortName().toUpperCase().contains(string.toUpperCase())) {
+				ret.add(item);
+			}
+		}
+		return ret;
+	}
+	
+	
 
 	private static String objectToString(Serializable object) {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
