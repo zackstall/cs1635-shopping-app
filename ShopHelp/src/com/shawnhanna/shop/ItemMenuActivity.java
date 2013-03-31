@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -18,9 +19,15 @@ public class ItemMenuActivity extends ShopActivity {
 	private Button backButton;
 	private Button incrementButton;
 	private Button decrementButton;
-	private Item item;
+	private TextView quantity;
+	private TextView price;
+	private TextView totalPrice;
 	private Intent intent;
 	private ArrayList<Item> itemList;
+	private DataService dataService;
+	private Item item;
+	private int itemIndex;
+	
 
 //-----------------------------------------------------------------------------------------------------------------------------
 //-- ONCREATE
@@ -32,16 +39,20 @@ public class ItemMenuActivity extends ShopActivity {
 		setContentView(R.layout.activity_item);
 		intent = getIntent();
 		
+		dataService = DataService.getInstance();
+		
 		initializeViewItems();
 		
 		initializeButtonListeners();
 		setupMenuBarButtons(this);
 		receiveItem();
+		//totalPrice.setText(""+(item.getPrice()*item.getQuantity()));
 	}
 
 	private void receiveItem(){
-		item = (Item)intent.getSerializableExtra("com.shawnhanna.shop.ITEM");
-		itemList = DataService.getInstance().getCart();
+		itemIndex = (Integer) intent.getSerializableExtra("com.shawnhanna.shop.ITEM_INDEX");//no need to pass a whole item
+		itemList = dataService.getCart();
+		item = itemList.get(itemIndex);
 		TextView price = (TextView) findViewById(R.id.item_price);
 		TextView quantity = (TextView) findViewById(R.id.item_quantity);
 		TextView itemName = (TextView) findViewById(R.id.item_name);
@@ -62,6 +73,9 @@ public class ItemMenuActivity extends ShopActivity {
 		backButton = (Button) findViewById(R.id.back_button);
 		incrementButton =(Button) findViewById(R.id.increment_quantity);
 		decrementButton =(Button) findViewById(R.id.decrement_quantity);
+		quantity = (TextView) findViewById(R.id.item_quantity);
+		price = (TextView) findViewById(R.id.item_price);
+		totalPrice = (TextView) findViewById(R.id.total_price);
 	}
 
 	private void initializeButtonListeners() 
@@ -71,8 +85,10 @@ public class ItemMenuActivity extends ShopActivity {
 			@Override
 			public void onClick(View arg0) 
 			{		
+				dataService.removeFromCart(item);						
+				//TODO: fix this desperate workaround and force refresh
 				Intent intent = new Intent(ItemMenuActivity.this, ShopListActivity.class);
-			    startActivity(intent);
+				startActivity(intent);
 			}
 		});	
 		findButton.setOnClickListener(new OnClickListener() 
@@ -81,6 +97,7 @@ public class ItemMenuActivity extends ShopActivity {
 			public void onClick(View arg0) 
 			{		
 				Intent intent = new Intent(ItemMenuActivity.this, MapActivity.class);
+				intent.putExtra("com.shawnhanna.shop.ITEM_INDEX",itemIndex);
 			    startActivity(intent);
 			}
 		});	
@@ -90,6 +107,7 @@ public class ItemMenuActivity extends ShopActivity {
 			public void onClick(View arg0) 
 			{		
 				Intent intent = new Intent(ItemMenuActivity.this, AisleViewActivity.class);
+				intent.putExtra("com.shawnhanna.shop.ITEM_INDEX",itemIndex);
 			    startActivity(intent);
 			}
 		});	
@@ -108,13 +126,8 @@ public class ItemMenuActivity extends ShopActivity {
 			public void onClick(View arg0) 
 			{
 				item.incrementQuantity();
-				for(int i=0; i< itemList.size(); i++){
-					if(item.equals(itemList.get(i))){
-						itemList.get(i).incrementQuantity();
-					}
-				}
-				TextView quantity = (TextView) findViewById(R.id.item_quantity);
 				quantity.setText(""+item.getQuantity());
+				//totalPrice.setText(""+(item.getPrice()*item.getQuantity()));
 			}
 		});
 		decrementButton.setOnClickListener(new OnClickListener() 
@@ -123,13 +136,15 @@ public class ItemMenuActivity extends ShopActivity {
 			public void onClick(View arg0) 
 			{		
 				item.decrementQuantity();
-				for(int i=0; i< itemList.size(); i++){
-					if(item.getBarcode() == itemList.get(i).getBarcode()){
-						itemList.get(i).decrementQuantity();
-					}
-				}
-				TextView quantity = (TextView) findViewById(R.id.item_quantity);
 				quantity.setText(""+item.getQuantity());
+				//totalPrice.setText(""+(item.getPrice()*item.getQuantity()));
+					
+				if(item.getQuantity()==0){
+					dataService.removeFromCart(item);	
+					//TODO: fix this desperate workaround and force refresh
+					Intent intent = new Intent(ItemMenuActivity.this, ShopListActivity.class);
+					startActivity(intent);
+				}
 			}
 		});
 	}

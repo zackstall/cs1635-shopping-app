@@ -171,12 +171,13 @@ public class ShopListActivity extends ShopActivity {
 				@Override
 				public void onClick(View arg0) {
 					Intent intent = new Intent(ShopListActivity.this,ItemMenuActivity.class);
+					intent.putExtra("com.shawnhanna.shop.ITEM_INDEX",(Integer) nameField.getTag());
 					startActivity(intent);
 					refreshList();
 				}
 			});
 			
-			//TODO: make this work
+			//TODO: make this work (check box persistence)
 			inCartCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener()
 			{
 			    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)

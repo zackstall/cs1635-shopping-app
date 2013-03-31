@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context=".ListActivity" >
 
     <include
@@ -80,7 +79,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/price_heading"
         android:layout_alignLeft="@+id/decrement_quantity"
-        android:layout_alignRight="@+id/increment_quantity"
+        android:layout_alignParentRight="true"
         android:text="@string/default_price"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -93,13 +92,23 @@
         android:layout_alignRight="@+id/item_name"
         android:text="@string/plus" />
 
+
+    <View
+        android:id="@+id/separator_3"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/remove_button"
+        android:layout_margin="10dp"
+        android:background="#ffffff" />
+
     <View
         android:id="@+id/separator_2"
         android:layout_width="fill_parent"
         android:layout_height="1dip"
-        android:layout_below="@id/item_price"
-        android:layout_centerVertical="true"
-        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/total_tag"
+        android:layout_margin="15dp"
         android:background="#ffffff" />
 
     <Button
@@ -111,49 +120,50 @@
         android:layout_below="@+id/separator_2"
         android:text="@string/remove_button" />
 
-    <View
-        android:id="@+id/separator_3"
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:layout_below="@id/remove_button"
-        android:layout_centerVertical="true"
-        android:background="#ffffff" />
-    
-    <Button
-        android:id="@+id/aisle_button"
+    <TextView
+        android:id="@+id/total_tag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/find_button"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/price_heading"
+        android:text="@string/total"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/total_item_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/total_tag"
+        android:layout_alignBottom="@+id/total_tag"
+        android:layout_alignLeft="@+id/item_price"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/find_button"
-        android:text="@string/aisle_button" />
+        android:text="@string/default_price"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
         android:id="@+id/find_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/separator_3"
-        android:layout_marginTop="18dp"
-        android:layout_toLeftOf="@+id/aisle_button"
+        android:layout_alignBaseline="@+id/aisle_button"
+        android:layout_alignBottom="@+id/aisle_button"
+        android:layout_alignParentRight="true"
         android:text="@string/find_button" />
+
+    <Button
+        android:id="@+id/aisle_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/separator_3"
+        android:layout_toLeftOf="@+id/find_button"
+        android:layout_toRightOf="@+id/back_button"
+        android:text="@string/aisle_button" />
 
     <Button
         android:id="@+id/back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/find_button"
         android:layout_alignParentLeft="true"
-        android:layout_alignTop="@+id/find_button"
-        android:layout_toLeftOf="@+id/find_button"
+        android:layout_below="@+id/separator_3"
         android:text="@string/activity_return" />
-
-    <ImageView
-        android:id="@+id/topItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:scaleType="fitStart"
-        android:src="@drawable/topbar_item" />
 
 </RelativeLayout>

@@ -92,7 +92,7 @@
 	    android:layout_below="@+id/listList"
 	    android:layout_toLeftOf="@+id/total_price"
 	    android:gravity="center"
-	    android:text="@string/list_total"
+	    android:text="@string/total"
 	    android:textAppearance="?android:attr/textAppearanceLarge" />
 
 	<View
