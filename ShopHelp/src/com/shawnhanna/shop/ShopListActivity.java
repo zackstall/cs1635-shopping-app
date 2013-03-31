@@ -2,25 +2,26 @@ package com.shawnhanna.shop;
 
 import java.util.ArrayList;
 
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class ShopListActivity extends ListActivity {
+public class ShopListActivity extends ShopActivity {
 	static final String TAG = "ListActivity";
 
 	private ArrayList<Item> itemList;
-	private ItemAdapter itemAdapter;
 	private Button searchButton;
 
 	// -----------------------------------------------------------------------------------------------------------------------------
@@ -35,10 +36,37 @@ public class ShopListActivity extends ListActivity {
 		// initializes views and buttons
 		initializeViewItems();
 		itemList = DataService.getInstance().getCart();
+		// NOTE: this is just temporary until we get the DB set up
+		if (itemList == null)
+			itemList = new ArrayList<Item>();
 
-		itemAdapter = new ItemAdapter(this, R.layout.list_entry, itemList);
-		setListAdapter(itemAdapter);
-		ShopActivity.setupMenuBarButtons(this);
+		ItemAdapter itemAdapter = new ItemAdapter(this, R.layout.list_entry, itemList);
+		ListView lv = (ListView) findViewById(R.id.listList);
+		lv.setAdapter(itemAdapter);
+		lv.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View view,
+					int position, long id) {
+				Intent intent = new Intent(ShopListActivity.this,
+						ItemMenuActivity.class);
+				startActivity(intent);
+				Log.d("----NOTE", "were in");
+				if (view.getTag() == null) {
+					Log.d("----NOTE", "tag is null");
+					startActivity(intent);
+				} else if (((String) view.getTag()).equals("MENU")) {
+				} else if (((String) view.getTag()).equals("CBOX")) {
+					// do nothing for now
+				} else if (((String) view.getTag()).equals("ADD")) {
+					itemList.get(position).incrementQuantity();
+				} else if (((String) view.getTag()).equals("SUB")) {
+					itemList.get(position).decrementQuantity();
+				} else {
+					Log.d("----NOTE", "no valid tag");
+				}
+			}
+		});
+		setupMenuBarButtons(this);
 		// define button listeners
 		initializeButtonListeners();
 	}
@@ -49,7 +77,6 @@ public class ShopListActivity extends ListActivity {
 
 	private void initializeViewItems() {
 		setContentView(R.layout.activity_list);
-
 		searchButton = (Button) findViewById(R.id.add_item_button);
 	}
 
@@ -62,15 +89,6 @@ public class ShopListActivity extends ListActivity {
 				startActivity(intent);
 			}
 		});
-	}
-
-	@Override
-	protected void onListItemClick(ListView listview, View view, int position,
-			long id) {
-		Intent intent = new Intent(ShopListActivity.this,
-				ItemMenuActivity.class);
-		intent.putExtra("com.shawnhanna.shop.ITEM", itemList.get(position));
-		startActivity(intent);
 	}
 
 	// -----------------------------------------------------------------------------------------------------------------------------
@@ -88,6 +106,7 @@ public class ShopListActivity extends ListActivity {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
+
 			View view = convertView;
 			if (view == null) {
 				LayoutInflater inflator = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -128,4 +147,5 @@ public class ShopListActivity extends ListActivity {
 			return view;
 		}
 	}
+
 }

@@ -1,7 +1,7 @@
 package com.shawnhanna.shop;
 
 import java.util.ArrayList;
-import android.app.ListActivity;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,20 +10,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class SearchActivity extends ListActivity {
+public class SearchActivity extends ShopActivity {
 	static final String TAG = "ListActivity";
 
-	private ArrayList<Item> resultList;
-	private ResultAdapter resultAdapter;
 	private Button searchButton;
 	private Button backButton;
-	private ArrayList<Item> itemList;
 
 	// -----------------------------------------------------------------------------------------------------------------------------
 	// -- ONCREATE
@@ -37,14 +35,27 @@ public class SearchActivity extends ListActivity {
 		// initializes views and buttons
 		initializeViewItems();
 		setupMenuBarButtons(this);
-		// for(int i = 0; i < 15; i++) resultList.add(new
-		// Item(""+i,""+i,i,i,i));
 		DataService db = DataService.getInstance();
-		resultAdapter = new ResultAdapter(this, R.layout.search_list_entry,
-				db.getDB());
 
-		itemList = db.getCart();
-		setListAdapter(resultAdapter);
+		ResultAdapter resultAdapter = new ResultAdapter(this,
+				R.layout.search_list_entry, db.getDB());
+
+		ListView lv = (ListView) findViewById(R.id.searchList);
+		lv.setAdapter(resultAdapter);
+		lv.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View view,
+					int position, long id) {
+				ArrayList<Item> resultList = DataService.getInstance().getDB();
+				Log.d("POS", "POS " + position);
+				Log.d("POS", "POS " + resultList.get(position).getName());
+				DataService.getInstance().addToCart(resultList.get(position));
+
+				Intent intent = new Intent(SearchActivity.this,
+						ShopListActivity.class);
+				startActivity(intent);
+			}
+		});
 
 		initializeButtonListeners();
 	}
@@ -64,10 +75,7 @@ public class SearchActivity extends ListActivity {
 		backButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(SearchActivity.this,
-						ShopListActivity.class);
-				intent.putExtra("com.shawnhanna.shop.LIST", itemList);
-				startActivity(intent);
+				SearchActivity.this.finish();
 			}
 		});
 		searchButton.setOnClickListener(new OnClickListener() {
@@ -76,59 +84,6 @@ public class SearchActivity extends ListActivity {
 				// do nothing for now
 			}
 		});
-
-	}
-
-	protected void setupMenuBarButtons(SearchActivity activity) {
-		ImageButton listMenuButton = (ImageButton) activity
-				.findViewById(R.id.listMenuButton);
-		ImageButton barcodeMenuButton = (ImageButton) activity
-				.findViewById(R.id.scanMenuButton);
-		ImageButton mapMenuButton = (ImageButton) activity
-				.findViewById(R.id.mapMenuButton);
-
-		listMenuButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				Intent intent = new Intent(SearchActivity.this,
-						ShopListActivity.class);
-				intent.putExtra("com.shawnhanna.shop.LIST", itemList);
-				startActivity(intent);
-			}
-		});
-
-		barcodeMenuButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				Intent intent = new Intent(SearchActivity.this,
-						BarcodeActivity.class);
-				intent.putExtra("com.shawnhanna.shop.LIST", itemList);
-				startActivity(intent);
-			}
-		});
-
-		mapMenuButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				Intent intent = new Intent(SearchActivity.this,
-						MapActivity.class);
-				intent.putExtra("com.shawnhanna.shop.LIST", itemList);
-				startActivity(intent);
-			}
-		});
-	}
-
-	@Override
-	protected void onListItemClick(ListView listview, View view, int position,
-			long id) {
-		ArrayList<Item> resultList = DataService.getInstance().getDB();
-		Log.d("POS", "POS " + position);
-		//TODO: change to reflect search results
-		Log.d("POS", "POS " + resultList.get(position).getName());
-		DataService.getInstance().addToCart(resultList.get(position));
-
-		Intent intent = new Intent(SearchActivity.this, ShopListActivity.class);
-		startActivity(intent);
 	}
 
 	// -----------------------------------------------------------------------------------------------------------------------------
@@ -166,7 +121,6 @@ public class SearchActivity extends ListActivity {
 					nameField.setText("" + item.getShortName());
 				if (QuantityFielld != null)
 					QuantityFielld.setText("" + item.getQuantity());
-
 			}
 			return view;
 		}

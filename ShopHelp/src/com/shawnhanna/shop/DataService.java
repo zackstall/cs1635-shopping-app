@@ -26,10 +26,10 @@ import android.util.Log;
 public class DataService {
 	private static final String TAG = "DataService";
 
-	Lock cartLock = new ReentrantLock();
-	Lock dbLock = new ReentrantLock();
-	ArrayList<Item> db = new ArrayList<Item>(50);
-	ArrayList<Item> cartList = new ArrayList<Item>(50);
+	private Lock cartLock = new ReentrantLock();
+	private Lock dbLock = new ReentrantLock();
+	private ArrayList<Item> db = new ArrayList<Item>(50);
+	private ArrayList<Item> cartList = new ArrayList<Item>(50);
 
 	private static DataService singleton;
 

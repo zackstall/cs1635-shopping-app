@@ -1,7 +1,6 @@
 package com.shawnhanna.shop;
 
 import android.os.Bundle;
-import android.util.Log;
 
 public class AisleViewActivity extends ShopActivity {
 	static final String TAG="BarcodeActivity";

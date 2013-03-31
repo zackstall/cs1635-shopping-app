@@ -51,7 +51,7 @@
         class="ListView" />
     
     <ListView
-        android:id="@+id/android:list"
+        android:id="@+id/searchList"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_alignBottom="@+id/result_list_view"
