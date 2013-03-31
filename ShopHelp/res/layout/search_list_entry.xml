@@ -15,9 +15,6 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="60dp"
             android:layout_height="32dp"
-			android:focusableInTouchMode="false"
-			android:clickable="false"
-			android:focusable="false"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:text="@string/search_add" />
@@ -26,9 +23,6 @@
             android:id="@+id/item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-			android:focusableInTouchMode="false"
-			android:clickable="false"
-			android:focusable="false"
             android:layout_centerVertical="true"
             android:text="@string/list_item_name"
             android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -38,9 +32,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-			android:focusableInTouchMode="false"
-			android:clickable="false"
-			android:focusable="false"
             android:layout_toLeftOf="@+id/increment_quantity"
             android:text="@string/zero"
             android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -51,9 +42,6 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_centerVertical="true"
-			android:focusableInTouchMode="false"
-			android:clickable="false"
-			android:focusable="false"
             android:layout_toLeftOf="@+id/item_quantity"
             android:text="@string/minus" />
 
@@ -62,9 +50,6 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="30dp"
             android:layout_height="30dp"
-			android:focusableInTouchMode="false"
-			android:clickable="false"
-			android:focusable="false"
             android:layout_centerVertical="true"
             android:layout_marginRight="18dp"
             android:layout_toLeftOf="@+id/search_add_button"

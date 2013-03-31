@@ -15,6 +15,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,6 +24,11 @@ public class ShopListActivity extends ShopActivity {
 	static final String TAG = "ListActivity";
 
 	private Button searchButton;
+	private ItemAdapter itemAdapter;
+	private ArrayList<Item> itemList;
+	private DataService dataService;
+	private ListView listView;
+	private TextView totalPriceText;
 
 	// -----------------------------------------------------------------------------------------------------------------------------
 	// -- ONCREATE
@@ -34,40 +41,21 @@ public class ShopListActivity extends ShopActivity {
 
 		// initializes views and buttons
 		initializeViewItems();
-		ArrayList<Item> itemList = DataService.getInstance().getCart();
+	
+		dataService = DataService.getInstance();
+		itemList = dataService.getCart();
+		
 		// NOTE: this is just temporary until we get the DB set up
-		if (itemList == null)
-			itemList = new ArrayList<Item>();
+		if (itemList == null) itemList = new ArrayList<Item>();
 
-		ItemAdapter itemAdapter = new ItemAdapter(this, R.layout.list_entry, itemList);
-		ListView lv = (ListView) findViewById(R.id.listList);
-		lv.setAdapter(itemAdapter);
-		lv.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View view,
-					int position, long id) {
-				Intent intent = new Intent(ShopListActivity.this,
-						ItemMenuActivity.class);
-				startActivity(intent);
-				Log.d("----NOTE", "were in");
-				if (view.getTag() == null) {
-					Log.d("----NOTE", "tag is null");
-					startActivity(intent);
-				} else if (((String) view.getTag()).equals("MENU")) {
-				} else if (((String) view.getTag()).equals("CBOX")) {
-					// do nothing for now
-				} else if (((String) view.getTag()).equals("ADD")) {
-					//itemList.get(position).incrementQuantity();
-				} else if (((String) view.getTag()).equals("SUB")) {
-					//itemList.get(position).decrementQuantity();
-				} else {
-					Log.d("----NOTE", "no valid tag");
-				}
-			}
-		});
+		itemAdapter = new ItemAdapter(this, R.layout.list_entry, itemList);
+		listView = (ListView) findViewById(R.id.listList);
+		listView.setAdapter(itemAdapter);
+		
 		setupMenuBarButtons(this);
 		// define button listeners
 		initializeButtonListeners();
+		refreshList();
 	}
 
 	// -----------------------------------------------------------------------------------------------------------------------------
@@ -77,17 +65,24 @@ public class ShopListActivity extends ShopActivity {
 	private void initializeViewItems() {
 		setContentView(R.layout.activity_list);
 		searchButton = (Button) findViewById(R.id.add_item_button);
+		totalPriceText = (TextView) findViewById(R.id.total_price);
 	}
 
 	private void initializeButtonListeners() {
 		searchButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(ShopListActivity.this,
-						SearchActivity.class);
+				Intent intent = new Intent(ShopListActivity.this, SearchActivity.class);
 				startActivity(intent);
+				refreshList();
 			}
 		});
+	}
+	
+	public void refreshList(){
+		totalPriceText.setText(dataService.getCartPriceAsString());
+		itemList = dataService.getCart();
+		itemAdapter.notifyDataSetChanged();
 	}
 
 	// -----------------------------------------------------------------------------------------------------------------------------
@@ -97,8 +92,7 @@ public class ShopListActivity extends ShopActivity {
 	private class ItemAdapter extends ArrayAdapter<Item> {
 		private ArrayList<Item> items;
 
-		public ItemAdapter(Context context, int textViewResourceId,
-				ArrayList<Item> items) {
+		public ItemAdapter(Context context, int textViewResourceId,	ArrayList<Item> items) {
 			super(context, textViewResourceId, items);
 			this.items = items;
 		}
@@ -115,35 +109,79 @@ public class ShopListActivity extends ShopActivity {
 			Item item = items.get(position);
 			if (item != null) {
 				// button creation
-				CheckBox inCartCheckBox = (CheckBox) view
-						.findViewById(R.id.in_cart);
-				inCartCheckBox.setTag("CBOX");
-				TextView nameField = (TextView) view
-						.findViewById(R.id.item_name);
-				TextView QuantityFielld = (TextView) view
-						.findViewById(R.id.item_quantity);
+				CheckBox inCartCheckBox = (CheckBox) view.findViewById(R.id.in_cart);
+				TextView nameField = (TextView) view.findViewById(R.id.item_name);
+				TextView quantityField = (TextView) view.findViewById(R.id.item_quantity);
 
-				Button plusButton = (Button) view
-						.findViewById(R.id.increment_quantity);
-				plusButton.setTag("ADD");
-				Button minusButton = (Button) view
-						.findViewById(R.id.decrement_quantity);
-				minusButton.setTag("SUB");
-				Button itemActionButton = (Button) view
-						.findViewById(R.id.item_action_button);
-				itemActionButton.setTag("MENU");
+				Button incrementButton = (Button) view.findViewById(R.id.increment_quantity);
+				Button decrementButton = (Button) view.findViewById(R.id.decrement_quantity);
+				Button itemActionButton = (Button) view	.findViewById(R.id.item_action_button);
 
+				nameField.setTag(position);//CAUTION: the tag has to be a number or shit will break
+
+				setUpAdapterListeners(incrementButton, decrementButton, itemActionButton, inCartCheckBox, nameField);
+				
 				// all fields are set using the data from each item in the item
 				// array
-				inCartCheckBox.setSelected(DataService.getInstance().inCart(
-						item));
+				inCartCheckBox.setSelected(DataService.getInstance().inCart(item));
 				if (nameField != null)
 					nameField.setText("" + item.getShortName());
-				if (QuantityFielld != null)
-					QuantityFielld.setText("" + item.getQuantity());
+				if (quantityField != null)
+					quantityField.setText("" + item.getQuantity());
 
 			}
 			return view;
+		}
+		
+private void setUpAdapterListeners(Button incrementButton, Button decrementButton, Button itemActionButton, CheckBox inCartCheckBox, final TextView nameField) {
+			
+			incrementButton.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					DataService dataService = DataService.getInstance();
+					if((Integer) nameField.getTag()<items.size()){
+						dataService.incrementItem(items.get((Integer) nameField.getTag()));
+						refreshList();
+					}
+				}
+			});
+
+			decrementButton.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					DataService dataService = DataService.getInstance();
+					if((Integer) nameField.getTag()<items.size()){
+						dataService.decrementItem(items.get((Integer) nameField.getTag()));
+						refreshList();
+					}
+				}
+			});
+			
+			itemActionButton.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					Intent intent = new Intent(ShopListActivity.this,ItemMenuActivity.class);
+					startActivity(intent);
+					refreshList();
+				}
+			});
+			
+			inCartCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener()
+			{
+			    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+			    {
+			        if ( isChecked )
+			        {
+			        	DataService dataService = DataService.getInstance();
+						if((Integer) nameField.getTag()<items.size()){
+							items.get((Integer) nameField.getTag()).invertCheck();
+							refreshList();
+						}
+
+			        }
+
+			    }
+			});
 		}
 	}
 

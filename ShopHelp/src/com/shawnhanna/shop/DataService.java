@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -110,6 +111,17 @@ public class DataService {
 			}
 		}
 		return false;
+	}
+	
+	public String getCartPriceAsString(){
+		double price = 0;
+
+		for (int i = 0; i < cartList.size(); i++) {
+			price+=(cartList.get(i).getPrice()*cartList.get(i).getQuantity());
+		}
+
+		NumberFormat formatter = NumberFormat.getCurrencyInstance();
+		return formatter.format(price);
 	}
 
 	/**

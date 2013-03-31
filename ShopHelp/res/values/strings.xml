@@ -22,6 +22,7 @@
     <string name="list_no_items">no items to display</string>
     <string name="list_item_carrot">></string>
     <string name="list_item_name">N/A</string>
+    <string name="list_total">Total:</string>
     
     <!-- Search Strings -->
     <string name="search_add">Add</string>
@@ -32,7 +33,7 @@
     <string name="item_name">Default Name</string>
     <string name="quantity_heading">Quantity</string>
     <string name="price_heading">Price</string>
-    <string name="default_price">-$0.00</string>
+    <string name="default_price">$0.00</string>
     <string name="remove_button">Remove</string>
     <string name="find_button">Find In Store</string>
     <string name="aisle_button">Aisle View</string>

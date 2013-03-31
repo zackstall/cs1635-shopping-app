@@ -14,16 +14,6 @@
         android:layout_centerHorizontal="true"
         layout="@layout/menu_bar" />
 
-    <Button
-        android:id="@+id/add_item_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/include1"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:gravity="center_vertical|center_horizontal|left"
-        android:text="@string/list_add_item" />
-
     <view
         android:id="@+id/item_list_view"
         android:layout_width="wrap_content"
@@ -59,7 +49,7 @@
 	    android:layout_height="wrap_content"
 	    android:layout_below="@+id/title"
 	    android:layout_centerHorizontal="true"
-	    android:text="@string/list_no_items"
+	    android:text=""
 	    android:textAlignment="center" />
 
 	<ImageView
@@ -71,5 +61,39 @@
 	    android:adjustViewBounds="false"
 	    android:scaleType="fitStart"
 	    android:src="@drawable/topbar_list" />
+
+	<Button
+	    android:id="@+id/add_item_button"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_above="@+id/include1"
+	    android:layout_alignParentLeft="true"
+	    android:layout_alignRight="@+id/android:empty"
+	    android:gravity="center_vertical|center_horizontal|left"
+	    android:text="@string/list_add_item" />
+
+	<TextView
+	    android:id="@+id/total_price"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignBottom="@+id/add_item_button"
+	    android:layout_alignParentRight="true"
+	    android:layout_alignTop="@+id/total_tag"
+	    android:gravity="center"
+	    android:paddingRight="@dimen/activity_horizontal_margin"
+	    android:text="@string/default_price"
+	    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+	<TextView
+	    android:id="@+id/total_tag"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignBottom="@+id/add_item_button"
+	    android:layout_alignLeft="@+id/android:empty"
+	    android:layout_below="@+id/listList"
+	    android:layout_toLeftOf="@+id/total_price"
+	    android:gravity="center"
+	    android:text="@string/list_total"
+	    android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>

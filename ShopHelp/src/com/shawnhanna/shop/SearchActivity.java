@@ -90,7 +90,9 @@ public class SearchActivity extends ShopActivity {
 				@Override
 				public void afterTextChanged(Editable s) {
 					currentResults.clear();
-					currentResults.addAll(DataService.getInstance().searchDBByName(searchBar.getText().toString()));	
+					//TODO: ignore items in that are in the cart
+					ArrayList<Item> resultList = DataService.getInstance().searchDBByName(searchBar.getText().toString());
+					currentResults.addAll(resultList);	
 					resultAdapter.notifyDataSetChanged();				
 				}
 	        });
@@ -138,20 +140,62 @@ public class SearchActivity extends ShopActivity {
 
 			Item item = items.get(position);
 			if (item != null) {
-				// button creation
-				TextView nameField = (TextView) view
-						.findViewById(R.id.item_name);
-				TextView QuantityFielld = (TextView) view
-						.findViewById(R.id.item_quantity);
+				
+				// view creation
+				TextView nameField = (TextView) view.findViewById(R.id.item_name);
+				TextView quantityField = (TextView) view.findViewById(R.id.item_quantity);
+				Button incrementButton = (Button) view.findViewById(R.id.increment_quantity);
+				Button decrementButton = (Button) view.findViewById(R.id.decrement_quantity);
+				Button addButton = (Button) view.findViewById(R.id.search_add_button);
+				
+				nameField.setTag(position);//CAUTION: the tag has to be a number or shit will break
+				
+				setUpAdapterListeners(incrementButton, decrementButton, addButton, nameField);
 
 				// all fields are set using the data from each item in the item
 				// array
 				if (nameField != null)
 					nameField.setText("" + item.getShortName());
-				if (QuantityFielld != null)
-					QuantityFielld.setText("" + item.getQuantity());
+				if (quantityField != null)
+					quantityField.setText("" + item.getQuantity());
+				
 			}
 			return view;
+		}
+
+		private void setUpAdapterListeners(Button incrementButton, Button decrementButton, Button addButton,  final TextView nameField) {
+			
+			incrementButton.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					if((Integer) nameField.getTag()<items.size()){
+						items.get((Integer) nameField.getTag()).incrementQuantity();
+						notifyDataSetChanged();
+					}
+				}
+			});
+
+			decrementButton.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					if((Integer) nameField.getTag()<items.size()){
+						items.get((Integer) nameField.getTag()).decrementQuantity();
+						notifyDataSetChanged();
+					}
+				}
+			});
+			
+			addButton.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					DataService db = DataService.getInstance();
+					
+					if((Integer) nameField.getTag()<items.size()){
+						db.addToCart(items.get((Integer) nameField.getTag()));
+						SearchActivity.this.finish();
+					}
+				}
+			});
 		}
 	}
 }

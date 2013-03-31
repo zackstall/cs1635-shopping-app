@@ -16,6 +16,7 @@ public class Item {
 							// stored - john, 3/25
 	private int quantity;
 	private int locationID;
+	private boolean checked;
 
 	// all items are initialized from the parameters, but quantity is set to 0,
 	// and inCart is set to false
@@ -27,6 +28,7 @@ public class Item {
 		barcode = newBarcode;
 		locationID = newLocationID;
 		quantity = 1;
+		checked = false;
 	}
 
 	public Item() {
@@ -63,7 +65,8 @@ public class Item {
 	}
 
 	public int decrementQuantity() {
-		return quantity--;
+		if(quantity > 0)return quantity--;
+		else return 0;
 	}
 
 	public int setQuantityToZero() {
@@ -76,6 +79,15 @@ public class Item {
 
 	public int setQuantity(int newQuantity) {
 		return quantity = newQuantity;
+	}
+	
+	public boolean getChecked(){
+		return checked;
+	}
+	public boolean invertCheck(){
+		if(checked) checked=false;
+		else checked=true;
+		return checked;
 	}
 
 	@Override
