@@ -121,13 +121,13 @@ public class SearchActivity extends ListActivity {
 	@Override
 	protected void onListItemClick(ListView listview, View view, int position,
 			long id) {
-		Intent intent = new Intent(SearchActivity.this, ShopListActivity.class);
+		ArrayList<Item> resultList = DataService.getInstance().getDB();
 		Log.d("POS", "POS " + position);
+		//TODO: change to reflect search results
 		Log.d("POS", "POS " + resultList.get(position).getName());
-		itemList.add(resultList.get(position));
-		Log.d("POS", "POS " + position);
-		Log.d("POS", "POS " + itemList.get(itemList.size() - 1).getName());
-		intent.putExtra("com.shawnhanna.shop.LIST", itemList);
+		DataService.getInstance().addToCart(resultList.get(position));
+
+		Intent intent = new Intent(SearchActivity.this, ShopListActivity.class);
 		startActivity(intent);
 	}
 
@@ -146,7 +146,6 @@ public class SearchActivity extends ListActivity {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-
 			View view = convertView;
 			if (view == null) {
 				LayoutInflater inflator = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);

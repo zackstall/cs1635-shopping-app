@@ -67,7 +67,7 @@ public class DataService {
 		cartLock.unlock();
 	}
 
-	public void addToDB(Item item) {
+	protected void addToDB(Item item) {
 		dbLock.lock();
 		if (!this.inDB(item))
 			db.add(item);

@@ -88,7 +88,6 @@ public class ShopListActivity extends ListActivity {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-
 			View view = convertView;
 			if (view == null) {
 				LayoutInflater inflator = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
