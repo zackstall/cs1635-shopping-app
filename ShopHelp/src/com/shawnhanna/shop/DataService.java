@@ -154,8 +154,8 @@ public class DataService {
 		ArrayList<Item> ret = new ArrayList<Item>(db.size());
 		for (int i = 0; i < db.size(); i++) {
 			Item item = db.get(i);
-			if (item.getName().contains((string))
-					|| item.getShortName().contains(string)) {
+			if (item.getName().toUpperCase().contains((string.toUpperCase()))
+					|| item.getShortName().toUpperCase().contains(string.toUpperCase())) {
 				ret.add(item);
 			}
 		}

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +25,10 @@ public class SearchActivity extends ShopActivity {
 
 	private Button searchButton;
 	private Button backButton;
+	private ListView listView;
+	private ArrayList<Item> currentResults;
+	private ResultAdapter resultAdapter;
+	private EditText searchBar;
 
 	// -----------------------------------------------------------------------------------------------------------------------------
 	// -- ONCREATE
@@ -38,12 +44,14 @@ public class SearchActivity extends ShopActivity {
 		setupMenuBarButtons(this);
 		DataService db = DataService.getInstance();
 
-		ResultAdapter resultAdapter = new ResultAdapter(this,
-				R.layout.search_list_entry, db.getDB());
+		//the initial result list should be empty
+		currentResults = new ArrayList<Item>(db.getDB());
+		resultAdapter = new ResultAdapter(this, R.layout.search_list_entry, currentResults);
 
-		ListView lv = (ListView) findViewById(R.id.searchList);
-		lv.setAdapter(resultAdapter);
-		lv.setOnItemClickListener(new OnItemClickListener() {
+		listView = (ListView) findViewById(R.id.searchList);
+		listView.setAdapter(resultAdapter);
+		
+		listView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View view,
 					int position, long id) {
@@ -52,8 +60,7 @@ public class SearchActivity extends ShopActivity {
 				Log.d("POS", "POS " + resultList.get(position).getName());
 				DataService.getInstance().addToCart(resultList.get(position));
 
-				Intent intent = new Intent(SearchActivity.this,
-						ShopListActivity.class);
+				Intent intent = new Intent(SearchActivity.this,	ShopListActivity.class);
 				startActivity(intent);
 			}
 		});
@@ -70,23 +77,40 @@ public class SearchActivity extends ShopActivity {
 
 		backButton = (Button) findViewById(R.id.back_button);
 		searchButton = (Button) findViewById(R.id.search_button);
+		searchBar = (EditText)findViewById(R.id.search_bar);
 	}
 
 	private void initializeButtonListeners() {
+			searchBar.addTextChangedListener(new TextWatcher() {
+				
+				//only one of these is necessary, but they all nned to be implemented
+				@Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+				@Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+				@Override
+				public void afterTextChanged(Editable s) {
+					currentResults.clear();
+					currentResults.addAll(DataService.getInstance().searchDBByName(searchBar.getText().toString()));	
+					resultAdapter.notifyDataSetChanged();				
+				}
+	        });
+		
+		
 		backButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
 				SearchActivity.this.finish();
 			}
 		});
+		
+		//relic, still deciding ono its fate -john 3/30
 		searchButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				EditText text = (EditText)findViewById(R.id.search_bar);
-				ArrayList<Item> items = DataService.getInstance().searchDBByName(text.getText().toString());
-				ResultAdapter itemAdapter = new ResultAdapter(SearchActivity.this, R.layout.list_entry, items);
-				ListView lv = (ListView) findViewById(R.id.listList);
-				lv.setAdapter(itemAdapter);
+				//get the text, search it, and replace
+//				currentResults.clear();
+//				currentResults.addAll(DataService.getInstance().searchDBByName(searchBar.getText().toString()));	
+//				resultAdapter.notifyDataSetChanged();
 			}
 		});
 	}
