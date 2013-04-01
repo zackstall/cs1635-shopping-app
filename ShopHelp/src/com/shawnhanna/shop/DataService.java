@@ -34,6 +34,9 @@ public class DataService {
 	private ArrayList<Item> cartList = new ArrayList<Item>(50);
 	private ArrayList<Item> listList = new ArrayList<Item>(50);
 
+	//most recently "selected" item.  Must be set before being called
+	private Item selectedItem = null;
+
 	private static DataService singleton;
 
 	private DataService() {
@@ -184,6 +187,22 @@ public class DataService {
 
 		NumberFormat formatter = NumberFormat.getCurrencyInstance();
 		return formatter.format(price);
+	}
+	
+	public Item getSelectedItem(){
+		return selectedItem;
+	}
+	
+	public void setSelectedItem(Item item){
+		selectedItem = item;
+	}
+	
+	public boolean isItemSelected() {
+		return selectedItem != null;
+	}
+	
+	public void unSelectItem() {
+		selectedItem = null;
 	}
 
 	/**
