@@ -7,13 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -109,6 +106,7 @@ public class SearchActivity extends ShopActivity {
 
 	private class ResultAdapter extends ArrayAdapter<Item> {
 		private ArrayList<Item> items;
+		Item item;
 
 		public ResultAdapter(Context context, int textViewResourceId,
 				ArrayList<Item> items) {
@@ -124,8 +122,9 @@ public class SearchActivity extends ShopActivity {
 				view = inflator.inflate(R.layout.search_list_entry, null);
 			}
 
-			Item item = items.get(position);
+			item = items.get(position);
 			if (item != null) {
+				DataService.getInstance().setSelectedItem(item);
 				
 				// view creation
 				TextView nameField = (TextView) view.findViewById(R.id.item_name);

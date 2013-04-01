@@ -1,6 +1,5 @@
 package com.shawnhanna.shop;
 
-import java.io.Serializable;
 
 
 /*
@@ -10,7 +9,7 @@ import java.io.Serializable;
  * variables only have accessors, and not manipulators because their values must match
  * the server values
  */
-public class Item implements Serializable {
+public class Item {
 	private String name;
 	private String shortName;
 	private double price;

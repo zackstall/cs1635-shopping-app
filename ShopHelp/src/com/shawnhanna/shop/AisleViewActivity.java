@@ -1,7 +1,5 @@
 package com.shawnhanna.shop;
 
-import java.util.ArrayList;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -17,11 +15,8 @@ public class AisleViewActivity extends ShopActivity {
 	private ImageButton leftArrow;
 	private ImageButton rightArrow;
 	private RelativeLayout layout;
-	private Intent intent;
-	private ArrayList<Item> itemList;
 	private DataService dataService;
 	private Item item;
-	private int itemIndex;
 	private String prefix;
 	private int imageIndex;
 
@@ -34,11 +29,7 @@ public class AisleViewActivity extends ShopActivity {
 		initializeViewItems();
 
 		dataService = DataService.getInstance();
-		intent = getIntent();
-		itemIndex = (Integer) intent
-				.getSerializableExtra("com.shawnhanna.shop.ITEM_INDEX");
-		itemList = dataService.getCart();
-		item = itemList.get(itemIndex);
+		item = dataService.getSelectedItem();
 		imageIndex = 1;
 		setPrefix();
 
@@ -76,7 +67,6 @@ public class AisleViewActivity extends ShopActivity {
 			public void onClick(View arg0) {
 				Intent intent = new Intent(AisleViewActivity.this,
 						ItemMenuActivity.class);
-				intent.putExtra("com.shawnhanna.shop.ITEM_INDEX", itemIndex);
 				startActivity(intent);
 			}
 		});

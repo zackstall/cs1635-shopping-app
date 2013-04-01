@@ -21,6 +21,7 @@ public class MapActivity extends ShopActivity {
 			@Override
 			public void onClick(View arg0) {
 				Intent intent = new Intent(MapActivity.this, ItemMenuActivity.class);
+				//DataService.getInstance().setSelectedItem();
 				startActivity(intent);
 			}});
 	}

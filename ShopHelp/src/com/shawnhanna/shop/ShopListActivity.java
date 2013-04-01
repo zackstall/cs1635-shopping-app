@@ -91,6 +91,7 @@ public class ShopListActivity extends ShopActivity {
 
 	private class ItemAdapter extends ArrayAdapter<Item> {
 		private ArrayList<Item> items;
+		Item item;
 
 		public ItemAdapter(Context context, int textViewResourceId,	ArrayList<Item> items) {
 			super(context, textViewResourceId, items);
@@ -106,7 +107,7 @@ public class ShopListActivity extends ShopActivity {
 				view = inflator.inflate(R.layout.list_entry, null);
 			}
 
-			Item item = items.get(position);
+			item = items.get(position);
 			if (item != null) {
 				// button creation
 				CheckBox inCartCheckBox = (CheckBox) view.findViewById(R.id.in_cart);
@@ -171,7 +172,7 @@ public class ShopListActivity extends ShopActivity {
 				@Override
 				public void onClick(View arg0) {
 					Intent intent = new Intent(ShopListActivity.this,ItemMenuActivity.class);
-					intent.putExtra("com.shawnhanna.shop.ITEM_INDEX",(Integer) nameField.getTag());
+					dataService.setSelectedItem(item);
 					startActivity(intent);
 					refreshList();
 				}
@@ -182,7 +183,7 @@ public class ShopListActivity extends ShopActivity {
 			{
 			    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
 			    {
-			       	DataService dataService = DataService.getInstance();
+			       	//DataService dataService = DataService.getInstance();
 					if((Integer) nameField.getTag()<items.size()){
 						items.get((Integer) nameField.getTag()).invertCheck();
 					}

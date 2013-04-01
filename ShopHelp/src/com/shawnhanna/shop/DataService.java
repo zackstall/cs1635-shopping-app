@@ -34,7 +34,7 @@ public class DataService {
 	private ArrayList<Item> cartList = new ArrayList<Item>(50);
 	private ArrayList<Item> listList = new ArrayList<Item>(50);
 
-	//most recently "selected" item.  Must be set before being called
+	// most recently "selected" item. Must be set before being called
 	private Item selectedItem = null;
 
 	private static DataService singleton;
@@ -73,12 +73,14 @@ public class DataService {
 		dbLock.unlock();
 		return retList;
 	}
-	
-	//this is not very efficient, feel free to change it if you have time - john 3/30
-	public ArrayList<Item> getDBMinusCart(){
+
+	// this is not very efficient, feel free to change it if you have time -
+	// john 3/30
+	public ArrayList<Item> getDBMinusCart() {
 		ArrayList<Item> newArray = new ArrayList<Item>();
-		for(int i = 0; i < db.size(); i++){
-			if(!cartList.contains(db.get(i))) newArray.add(db.get(i));
+		for (int i = 0; i < db.size(); i++) {
+			if (!cartList.contains(db.get(i)))
+				newArray.add(db.get(i));
 		}
 		return newArray;
 	}
@@ -89,7 +91,7 @@ public class DataService {
 			cartList.add(item);
 		cartLock.unlock();
 	}
-	
+
 	public void addToList(Item item) {
 		listLock.lock();
 		if (!this.inList(item))
@@ -103,19 +105,19 @@ public class DataService {
 			db.add(item);
 		dbLock.unlock();
 	}
-	
+
 	public void removeFromCart(Item item) {
 		cartLock.lock();
-		if (this.inCart(item)){
+		if (this.inCart(item)) {
 			item.setQuantity(1);
 			cartList.remove(item);
 		}
 		cartLock.unlock();
 	}
-	
+
 	public void removeFromList(Item item) {
 		listLock.lock();
-		if (this.inCart(item)){
+		if (this.inCart(item)) {
 			listList.remove(item);
 		}
 		listLock.unlock();
@@ -138,7 +140,7 @@ public class DataService {
 		}
 		return false;
 	}
-	
+
 	public boolean inList(Item item) {
 		for (int i = 0; i < listList.size(); i++) {
 			if (listList.get(i).equals(item)) {
@@ -167,7 +169,7 @@ public class DataService {
 		}
 		return false;
 	}
-	
+
 	public boolean replaceInCart(Item item) {
 		for (int i = 0; i < cartList.size(); i++) {
 			if (cartList.get(i).equals(item)) {
@@ -177,30 +179,31 @@ public class DataService {
 		}
 		return false;
 	}
-	
-	public String getCartPriceAsString(){
+
+	public String getCartPriceAsString() {
 		double price = 0;
 
 		for (int i = 0; i < cartList.size(); i++) {
-			price+=(cartList.get(i).getPrice()*cartList.get(i).getQuantity());
+			price += (cartList.get(i).getPrice() * cartList.get(i)
+					.getQuantity());
 		}
 
 		NumberFormat formatter = NumberFormat.getCurrencyInstance();
 		return formatter.format(price);
 	}
-	
-	public Item getSelectedItem(){
+
+	public Item getSelectedItem() {
 		return selectedItem;
 	}
-	
-	public void setSelectedItem(Item item){
+
+	public void setSelectedItem(Item item) {
 		selectedItem = item;
 	}
-	
+
 	public boolean isItemSelected() {
 		return selectedItem != null;
 	}
-	
+
 	public void unSelectItem() {
 		selectedItem = null;
 	}
@@ -218,6 +221,10 @@ public class DataService {
 		editor.commit();
 	}
 
+	/**
+	 * loads any persistent data, such as the cart, and the database TODO: make
+	 * this work?
+	 */
 	protected void load() {
 		addToDB(new Item("Ruffles Potato Chips", "Potato Chips", 3.99, 123456,
 				4));
@@ -248,7 +255,8 @@ public class DataService {
 		for (int i = 0; i < db.size(); i++) {
 			Item item = db.get(i);
 			if (item.getName().toUpperCase().contains((string.toUpperCase()))
-					|| item.getShortName().toUpperCase().contains(string.toUpperCase())) {
+					|| item.getShortName().toUpperCase()
+							.contains(string.toUpperCase())) {
 				ret.add(item);
 			}
 		}
@@ -261,14 +269,13 @@ public class DataService {
 		for (int i = 0; i < availableItems.size(); i++) {
 			Item item = availableItems.get(i);
 			if (item.getName().toUpperCase().contains((string.toUpperCase()))
-					|| item.getShortName().toUpperCase().contains(string.toUpperCase())) {
+					|| item.getShortName().toUpperCase()
+							.contains(string.toUpperCase())) {
 				ret.add(item);
 			}
 		}
 		return ret;
 	}
-	
-	
 
 	private static String objectToString(Serializable object) {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
