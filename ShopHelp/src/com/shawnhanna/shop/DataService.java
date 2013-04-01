@@ -28,9 +28,11 @@ public class DataService {
 	private static final String TAG = "DataService";
 
 	private Lock cartLock = new ReentrantLock();
+	private Lock listLock = new ReentrantLock();
 	private Lock dbLock = new ReentrantLock();
 	private ArrayList<Item> db = new ArrayList<Item>(50);
 	private ArrayList<Item> cartList = new ArrayList<Item>(50);
+	private ArrayList<Item> listList = new ArrayList<Item>(50);
 
 	private static DataService singleton;
 
@@ -50,6 +52,14 @@ public class DataService {
 		@SuppressWarnings("unchecked")
 		ArrayList<Item> retList = (ArrayList<Item>) cartList.clone();
 		cartLock.unlock();
+		return retList;
+	}
+
+	public ArrayList<Item> getList() {
+		listLock.lock();
+		@SuppressWarnings("unchecked")
+		ArrayList<Item> retList = (ArrayList<Item>) listList.clone();
+		listLock.unlock();
 		return retList;
 	}
 
@@ -76,6 +86,13 @@ public class DataService {
 			cartList.add(item);
 		cartLock.unlock();
 	}
+	
+	public void addToList(Item item) {
+		listLock.lock();
+		if (!this.inList(item))
+			listList.add(item);
+		listLock.unlock();
+	}
 
 	protected void addToDB(Item item) {
 		dbLock.lock();
@@ -92,6 +109,14 @@ public class DataService {
 		}
 		cartLock.unlock();
 	}
+	
+	public void removeFromList(Item item) {
+		listLock.lock();
+		if (this.inCart(item)){
+			listList.remove(item);
+		}
+		listLock.unlock();
+	}
 
 	private boolean inDB(Item item) {
 		for (int i = 0; i < db.size(); i++) {
@@ -105,6 +130,15 @@ public class DataService {
 	public boolean inCart(Item item) {
 		for (int i = 0; i < cartList.size(); i++) {
 			if (cartList.get(i).equals(item)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean inList(Item item) {
+		for (int i = 0; i < listList.size(); i++) {
+			if (listList.get(i).equals(item)) {
 				return true;
 			}
 		}

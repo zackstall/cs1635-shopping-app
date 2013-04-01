@@ -46,7 +46,6 @@ public class ItemMenuActivity extends ShopActivity {
 		initializeButtonListeners();
 		setupMenuBarButtons(this);
 		receiveItem();
-		//totalPrice.setText(""+(item.getPrice()*item.getQuantity()));
 	}
 
 	private void receiveItem(){
@@ -59,6 +58,7 @@ public class ItemMenuActivity extends ShopActivity {
 		price.setText(""+item.getPrice());
 		quantity.setText(""+item.getQuantity());
 		itemName.setText(""+item.getName());
+		totalPrice.setText(String.valueOf(item.getPrice()*item.getQuantity()));
 	}
 //-----------------------------------------------------------------------------------------------------------------------------
 //-- UTILITY FUNCTIONS
@@ -75,7 +75,7 @@ public class ItemMenuActivity extends ShopActivity {
 		decrementButton =(Button) findViewById(R.id.decrement_quantity);
 		quantity = (TextView) findViewById(R.id.item_quantity);
 		price = (TextView) findViewById(R.id.item_price);
-		totalPrice = (TextView) findViewById(R.id.total_price);
+		totalPrice = (TextView) findViewById(R.id.total_item_price);
 	}
 
 	private void initializeButtonListeners() 
@@ -123,11 +123,11 @@ public class ItemMenuActivity extends ShopActivity {
 		incrementButton.setOnClickListener(new OnClickListener() 
 		{
 			@Override
-			public void onClick(View arg0) 
+			public void onClick(View arg0)
 			{
 				item.incrementQuantity();
 				quantity.setText(""+item.getQuantity());
-				//totalPrice.setText(""+(item.getPrice()*item.getQuantity()));
+				totalPrice.setText(String.valueOf(item.getPrice()*item.getQuantity()));
 			}
 		});
 		decrementButton.setOnClickListener(new OnClickListener() 
@@ -137,7 +137,7 @@ public class ItemMenuActivity extends ShopActivity {
 			{		
 				item.decrementQuantity();
 				quantity.setText(""+item.getQuantity());
-				//totalPrice.setText(""+(item.getPrice()*item.getQuantity()));
+				totalPrice.setText(String.valueOf(item.getPrice()*item.getQuantity()));
 					
 				if(item.getQuantity()==0){
 					dataService.removeFromCart(item);	
