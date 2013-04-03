@@ -24,6 +24,7 @@ import android.util.Log;
  * @brief This is a singleton storage class that stores to the internal file
  *        storage
  */
+@SuppressWarnings("deprecation")
 public class DataService {
 	private static final String TAG = "DataService";
 
@@ -33,6 +34,7 @@ public class DataService {
 	private ArrayList<Item> db = new ArrayList<Item>(50);
 	private ArrayList<Item> cartList = new ArrayList<Item>(50);
 	private ArrayList<Item> listList = new ArrayList<Item>(50);
+	private ArrayList<Node> nodeList = new ArrayList<Node>(9);
 
 	// most recently "selected" item. Must be set before being called
 	private Item selectedItem = null;
@@ -49,7 +51,7 @@ public class DataService {
 		}
 		return singleton;
 	}
-
+	
 	public ArrayList<Item> getCart() {
 		cartLock.lock();
 		@SuppressWarnings("unchecked")
@@ -63,6 +65,14 @@ public class DataService {
 		@SuppressWarnings("unchecked")
 		ArrayList<Item> retList = (ArrayList<Item>) listList.clone();
 		listLock.unlock();
+		return retList;
+	}
+	
+	public ArrayList<Node> getNodes() {
+		cartLock.lock();
+		@SuppressWarnings("unchecked")
+		ArrayList<Node> retList = (ArrayList<Node>) nodeList.clone();
+		cartLock.unlock();
 		return retList;
 	}
 
@@ -239,6 +249,24 @@ public class DataService {
 		// cartList = (ArrayList<Item>)
 		// stringToObject(prefs.getString("cartList", null));
 		// db = (ArrayList<Item>) stringToObject(prefs.getString("db", null));
+		
+		for(int i=1;i<10;i++)
+		{
+			Node currNode = new Node();
+			currNode.setId(i);
+			nodeList.add(currNode);
+			
+			if(i <= 3)
+			{
+				currNode.setCoords(50*i, 50);
+			}else if(i <= 6 && i > 3)
+			{
+				currNode.setCoords(50*(i-3), 100);
+			}else
+			{
+				currNode.setCoords(50*(i-6), 150);
+			}
+		}
 	}
 
 	public Editor getPreferenceEditor() {
