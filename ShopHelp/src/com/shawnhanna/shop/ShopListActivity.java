@@ -26,6 +26,7 @@ public class ShopListActivity extends ShopActivity {
 	private Button searchButton;
 	private ItemAdapter itemAdapter;
 	private ArrayList<Item> itemList;
+	private ArrayList<Item> checkedList;
 	private DataService dataService;
 	private ListView listView;
 	private TextView totalPriceText;
@@ -92,6 +93,7 @@ public class ShopListActivity extends ShopActivity {
 	private class ItemAdapter extends ArrayAdapter<Item> {
 		private ArrayList<Item> items;
 		Item item;
+		boolean initializing;
 
 		public ItemAdapter(Context context, int textViewResourceId,	ArrayList<Item> items) {
 			super(context, textViewResourceId, items);
@@ -100,7 +102,6 @@ public class ShopListActivity extends ShopActivity {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-
 			View view = convertView;
 			if (view == null) {
 				LayoutInflater inflator = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -124,11 +125,18 @@ public class ShopListActivity extends ShopActivity {
 				
 				// all fields are set using the data from each item in the item
 				// array
-				inCartCheckBox.setSelected(item.getChecked());
+				
+				//setting this flag is necessary because setchecked calls onCheckListener...
+				//which is stupid as fuck
+				initializing =true;
+				inCartCheckBox.setChecked(dataService.inChecked(item));
+				Log.d("--INDEX", ""+position);
+				Log.d("--CHECKED", ""+dataService.inChecked(item));
 				if (nameField != null)
 					nameField.setText("" + item.getShortName());
 				if (quantityField != null)
 					quantityField.setText("" + item.getQuantity());
+				initializing=false;
 
 			}
 			return view;
@@ -183,9 +191,19 @@ public class ShopListActivity extends ShopActivity {
 			{
 			    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
 			    {
+			    	if((Integer) nameField.getTag()>=items.size() || initializing) return;
+			    	
+			    	Item clickedItem = items.get((Integer) nameField.getTag());
+			    	
 			       	//DataService dataService = DataService.getInstance();
-					if((Integer) nameField.getTag()<items.size()){
-						items.get((Integer) nameField.getTag()).invertCheck();
+					if(dataService.inChecked(clickedItem)){
+						dataService.removeFromChecked(clickedItem);
+						Log.d("Check","UNCHECKED");
+					}
+					else
+					{
+						dataService.addToChecked(clickedItem);
+						Log.d("Check","CHECKED");
 					}
 			    }
 			});

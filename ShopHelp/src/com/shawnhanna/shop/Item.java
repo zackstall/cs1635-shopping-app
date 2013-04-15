@@ -22,14 +22,14 @@ public class Item {
 	// all items are initialized from the parameters, but quantity is set to 0,
 	// and inCart is set to false
 	public Item(String newName, String newShortName, double newPrice,
-			double newBarcode, int newLocationID) {
+			double newBarcode, int newLocationID, boolean isChecked) {
 		name = newName;
 		shortName = newShortName;
 		price = newPrice;
 		barcode = newBarcode;
 		locationID = newLocationID;
 		quantity = 1;
-		checked = false;
+		checked = isChecked;
 	}
 
 	public Item() {
@@ -39,6 +39,7 @@ public class Item {
 		barcode = -1;
 		locationID = -1;
 		quantity = -1;
+		checked = false;
 	}
 
 	public String getName() {

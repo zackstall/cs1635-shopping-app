@@ -33,7 +33,7 @@ public class DataService {
 	private Lock dbLock = new ReentrantLock();
 	private ArrayList<Item> db = new ArrayList<Item>(50);
 	private ArrayList<Item> cartList = new ArrayList<Item>(50);
-	private ArrayList<Item> listList = new ArrayList<Item>(50);
+	private ArrayList<Item> checkedList = new ArrayList<Item>(50);
 	private ArrayList<Node> nodeList = new ArrayList<Node>(9);
 
 	// most recently "selected" item. Must be set before being called
@@ -60,10 +60,10 @@ public class DataService {
 		return retList;
 	}
 
-	public ArrayList<Item> getList() {
+	public ArrayList<Item> getChecked() {
 		listLock.lock();
 		@SuppressWarnings("unchecked")
-		ArrayList<Item> retList = (ArrayList<Item>) listList.clone();
+		ArrayList<Item> retList = (ArrayList<Item>) checkedList.clone();
 		listLock.unlock();
 		return retList;
 	}
@@ -102,10 +102,10 @@ public class DataService {
 		cartLock.unlock();
 	}
 
-	public void addToList(Item item) {
+	public void addToChecked(Item item) {
 		listLock.lock();
-		if (!this.inList(item))
-			listList.add(item);
+		if (!this.inChecked(item))
+			checkedList.add(item);
 		listLock.unlock();
 	}
 
@@ -125,10 +125,10 @@ public class DataService {
 		cartLock.unlock();
 	}
 
-	public void removeFromList(Item item) {
+	public void removeFromChecked(Item item) {
 		listLock.lock();
 		if (this.inCart(item)) {
-			listList.remove(item);
+			checkedList.remove(item);
 		}
 		listLock.unlock();
 	}
@@ -151,12 +151,14 @@ public class DataService {
 		return false;
 	}
 
-	public boolean inList(Item item) {
-		for (int i = 0; i < listList.size(); i++) {
-			if (listList.get(i).equals(item)) {
+	public boolean inChecked(Item item) {
+		listLock.lock();
+		for (int i = 0; i < checkedList.size(); i++) {
+			if (checkedList.get(i).equals(item)) {
 				return true;
 			}
 		}
+		listLock.unlock();
 		return false;
 	}
 
@@ -237,11 +239,11 @@ public class DataService {
 	 */
 	protected void load() {
 		addToDB(new Item("Ruffles Potato Chips", "Potato Chips", 3.99, 123456,
-				4));
-		addToDB(new Item("Schneiders 2% Milk", "2% Milk", 3.59, 123457, 9));
+				4, false));
+		addToDB(new Item("Schneiders 2% Milk", "2% Milk", 3.59, 123457, 9, false));
 		addToDB(new Item("Jiffy Peanut Butter", "Peanut Butter", 4.25, 123458,
-				3));
-		addToDB(new Item("Coca-Cola", "Pop", 2.24, 123459, 2));
+				3, false));
+		addToDB(new Item("Coca-Cola", "Pop", 2.24, 123459, 2, false));
 
 		// SharedPreferences prefs =
 		// PreferenceManager.getDefaultSharedPreferences(ShopActivity.getContext());
