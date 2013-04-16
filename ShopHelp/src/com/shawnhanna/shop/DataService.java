@@ -34,7 +34,7 @@ public class DataService {
 	private ArrayList<Item> db = new ArrayList<Item>(50);
 	private ArrayList<Item> cartList = new ArrayList<Item>(50);
 	private ArrayList<Item> checkedList = new ArrayList<Item>(50);
-	private ArrayList<Node> nodeList = new ArrayList<Node>(9);
+	private ArrayList<MapDot> dotList = new ArrayList<MapDot>();
 
 	// most recently "selected" item. Must be set before being called
 	private Item selectedItem = null;
@@ -68,12 +68,17 @@ public class DataService {
 		return retList;
 	}
 	
-	public ArrayList<Node> getNodes() {
+	public ArrayList<MapDot> getDots() {
 		cartLock.lock();
 		@SuppressWarnings("unchecked")
-		ArrayList<Node> retList = (ArrayList<Node>) nodeList.clone();
+		ArrayList<MapDot> retList = (ArrayList<MapDot>) dotList.clone();
 		cartLock.unlock();
 		return retList;
+	}
+	
+	public void addDot(MapDot m)
+	{
+		dotList.add(m);
 	}
 
 	public ArrayList<Item> getDB() {
@@ -251,24 +256,6 @@ public class DataService {
 		// cartList = (ArrayList<Item>)
 		// stringToObject(prefs.getString("cartList", null));
 		// db = (ArrayList<Item>) stringToObject(prefs.getString("db", null));
-		
-		for(int i=1;i<10;i++)
-		{
-			Node currNode = new Node();
-			currNode.setId(i);
-			nodeList.add(currNode);
-			
-			if(i <= 3)
-			{
-				currNode.setCoords(50*i, 50);
-			}else if(i <= 6 && i > 3)
-			{
-				currNode.setCoords(50*(i-3), 100);
-			}else
-			{
-				currNode.setCoords(50*(i-6), 150);
-			}
-		}
 	}
 
 	public Editor getPreferenceEditor() {

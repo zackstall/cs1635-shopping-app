@@ -37,4 +37,6 @@
     <string name="remove_button">Remove</string>
     <string name="find_button">Find In Store</string>
     <string name="aisle_button">Aisle View</string>
+    <string name="desc">MapDot button</string>
+    <string name="view_desc">ImageView</string>
 </resources>
