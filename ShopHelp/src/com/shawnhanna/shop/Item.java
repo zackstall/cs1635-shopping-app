@@ -13,7 +13,7 @@ public class Item {
 	private String name;
 	private String shortName;
 	private double price;
-	private double barcode; // NOTE: I dont actually know how barcodes are
+	private String barcode; // NOTE: I dont actually know how barcodes are
 							// stored - john, 3/25
 	private int quantity;
 	private int locationID;
@@ -22,7 +22,7 @@ public class Item {
 	// all items are initialized from the parameters, but quantity is set to 0,
 	// and inCart is set to false
 	public Item(String newName, String newShortName, double newPrice,
-			double newBarcode, int newLocationID, boolean isChecked) {
+			String newBarcode, int newLocationID , boolean isChecked) {
 		name = newName;
 		shortName = newShortName;
 		price = newPrice;
@@ -36,7 +36,7 @@ public class Item {
 		name = "NO NAME";
 		shortName = "NO NAME";
 		price = -1;
-		barcode = -1;
+		barcode = "";
 		locationID = -1;
 		quantity = -1;
 		checked = false;
@@ -54,7 +54,7 @@ public class Item {
 		return locationID;
 	}
 
-	public double getBarcode() {
+	public String getBarcode() {
 		return barcode;
 	}
 

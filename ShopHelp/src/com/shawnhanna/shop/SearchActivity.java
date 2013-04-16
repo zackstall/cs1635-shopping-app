@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -129,9 +130,9 @@ public class SearchActivity extends ShopActivity {
 				// view creation
 				TextView nameField = (TextView) view.findViewById(R.id.item_name);
 				TextView quantityField = (TextView) view.findViewById(R.id.item_quantity);
-				Button incrementButton = (Button) view.findViewById(R.id.increment_quantity);
-				Button decrementButton = (Button) view.findViewById(R.id.decrement_quantity);
-				Button addButton = (Button) view.findViewById(R.id.search_add_button);
+				ImageButton incrementButton = (ImageButton) view.findViewById(R.id.increment_quantity);
+				ImageButton decrementButton = (ImageButton) view.findViewById(R.id.decrement_quantity);
+				ImageButton addButton = (ImageButton) view.findViewById(R.id.search_add_button);
 				
 				nameField.setTag(position);//CAUTION: the tag has to be a number or shit will break
 				
@@ -148,7 +149,7 @@ public class SearchActivity extends ShopActivity {
 			return view;
 		}
 
-		private void setUpAdapterListeners(Button incrementButton, Button decrementButton, Button addButton,  final TextView nameField) {
+		private void setUpAdapterListeners(ImageButton incrementButton, ImageButton decrementButton, ImageButton addButton,  final TextView nameField) {
 			
 			incrementButton.setOnClickListener(new OnClickListener() {
 				@Override

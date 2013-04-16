@@ -61,14 +61,20 @@
 	    android:scaleType="fitStart"
 	    android:src="@drawable/topbar_list" />
 
-	<Button
+	<ImageButton
 	    android:id="@+id/add_item_button"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_above="@+id/include1"
 	    android:layout_alignParentLeft="true"
 	    android:layout_alignRight="@+id/android:empty"
+	    android:layout_margin="10dp"
+	    android:layout_marginBottom="2dp"
+	    android:adjustViewBounds="true"
+	    android:background="@android:color/transparent"
 	    android:gravity="center_vertical|center_horizontal|left"
+	    android:scaleType="fitCenter"
+	    android:src="@drawable/button_add_item"
 	    android:text="@string/list_add_item" />
 
 	<TextView

@@ -4,16 +4,16 @@
     android:layout_height="match_parent"
     tools:context=".ListActivity" >
 
-    <ImageView
-        android:id="@+id/topItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:scaleType="fitXY"
-        android:src="@drawable/scan_example" />
+    <SurfaceView android:id="@+id/preview_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+                		<com.google.zxing.client.android.ViewfinderView
+        android:id="@+id/viewfinder_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
 
     <include
+        android:id="@+id/include3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -30,4 +30,14 @@
         android:scaleType="fitStart"
         android:src="@drawable/topbar_scanner" />
 
+	<TextView
+	    android:id="@+id/status_view"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_above="@id/include3"
+	    android:layout_gravity="bottom|center_horizontal"
+	    android:background="@color/transparent"
+	    android:text="@string/msg_default_status"
+	    android:textColor="@color/status_text" />
+    
 </RelativeLayout>

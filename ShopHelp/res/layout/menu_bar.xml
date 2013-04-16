@@ -51,7 +51,6 @@
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
-                android:cropToPadding="true"
                 android:scaleType="fitCenter"
                 android:src="@drawable/icon_list" />
 
@@ -64,7 +63,7 @@
                 android:background="@android:color/transparent"
                 android:baselineAlignBottom="false"
                 android:scaleType="fitCenter"
-                android:src="@drawable/icon_scan" />
+                android:src="@drawable/icon_scan2" />
 
             <ImageButton
                 android:id="@+id/mapMenuButton"
