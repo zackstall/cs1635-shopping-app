@@ -6,17 +6,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class ItemMenuActivity extends ShopActivity {
 	static final String TAG = "ItemMenuActivity";
 
-	private Button removebutton;
+	private ImageButton removebutton;
 	private Button findButton;
 	private Button aisleButton;
 	private Button backButton;
-	private Button incrementButton;
-	private Button decrementButton;
+	private ImageButton incrementButton;
+	private ImageButton decrementButton;
 	private TextView quantity;
 	private TextView totalPrice;
 	private DataService dataService;
@@ -69,12 +70,12 @@ public class ItemMenuActivity extends ShopActivity {
 	private void initializeViewItems() {
 		setContentView(R.layout.activity_item);
 
-		removebutton = (Button) findViewById(R.id.remove_button);
+		removebutton = (ImageButton) findViewById(R.id.remove_button);
 		findButton = (Button) findViewById(R.id.find_button);
 		aisleButton = (Button) findViewById(R.id.aisle_button);
 		backButton = (Button) findViewById(R.id.back_button);
-		incrementButton = (Button) findViewById(R.id.increment_quantity);
-		decrementButton = (Button) findViewById(R.id.decrement_quantity);
+		incrementButton = (ImageButton) findViewById(R.id.increment_quantity);
+		decrementButton = (ImageButton) findViewById(R.id.decrement_quantity);
 		quantity = (TextView) findViewById(R.id.item_quantity);
 		totalPrice = (TextView) findViewById(R.id.total_item_price);
 	}

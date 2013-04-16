@@ -10,13 +10,16 @@
         android:layout_weight="1"
         android:orientation="horizontal" >
 
-        <Button
+        <ImageButton
             android:id="@+id/item_action_button"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="33dp"
             android:layout_height="32dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/button_carrot"
             android:text="@string/list_item_carrot" />
 
         <TextView
@@ -41,20 +44,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
             android:layout_toLeftOf="@+id/increment_quantity"
             android:text="@string/zero"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <Button
+        <ImageButton
             android:id="@+id/decrement_quantity"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/item_quantity"
-            android:text="@string/minus" />
+            android:scaleType="fitCenter"
+            android:src="@drawable/button_decrement"
+            android:background="@android:color/transparent" />
 
-        <Button
+        <ImageButton
             android:id="@+id/increment_quantity"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="30dp"
@@ -62,7 +69,9 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="38dp"
             android:layout_toLeftOf="@+id/item_action_button"
-            android:text="@string/plus" />
+            android:src="@drawable/button_increment"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"/>
 
     </RelativeLayout>
 

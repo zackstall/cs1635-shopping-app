@@ -121,13 +121,16 @@ public class DataService {
 		if (this.inCart(item)) {
 			item.setQuantity(1);
 			cartList.remove(item);
+			if(inChecked(item)){
+				removeFromChecked(item);
+			}
 		}
 		cartLock.unlock();
 	}
 
 	public void removeFromChecked(Item item) {
 		listLock.lock();
-		if (this.inCart(item)) {
+		if (this.inChecked(item)) {
 			checkedList.remove(item);
 		}
 		listLock.unlock();
@@ -238,19 +241,17 @@ public class DataService {
 	 * this work?
 	 */
 	protected void load() {
-		addToDB(new Item("Ruffles Potato Chips", "Potato Chips", 3.99, 123456,
-				4, false));
-		addToDB(new Item("Schneiders 2% Milk", "2% Milk", 3.59, 123457, 9, false));
-		addToDB(new Item("Jiffy Peanut Butter", "Peanut Butter", 4.25, 123458,
-				3, false));
-		addToDB(new Item("Coca-Cola", "Pop", 2.24, 123459, 2, false));
 
-		// SharedPreferences prefs =
-		// PreferenceManager.getDefaultSharedPreferences(ShopActivity.getContext());
-		// if (prefs.getString("cartList", null) != null)
-		// cartList = (ArrayList<Item>)
-		// stringToObject(prefs.getString("cartList", null));
-		// db = (ArrayList<Item>) stringToObject(prefs.getString("db", null));
+		addToDB(new Item("Hungry Jack Potatoes - Mashed 15.3oz" , "Hungry Jack Potatoes" , 1.99 , "051500871027" , 4 ,false));
+		addToDB(new Item("San Giorgio Small Rigatoni 1lb" , "Rigatoni" , 1.25, "033400601249", 5 , false));
+		addToDB(new Item("Sweet Baby Ray's Barbecue Sauce - Oringinal 28oz" , "Barbeque Sauce" , 3.99 , "013409352311", 6 , false));
+		addToDB(new Item("Aunt Jemima - Original 24floz" , "Syrup" , 2.99 , "013409352311" ,6 , false));
+		addToDB(new Item("Del Grosso Pasta Sause - Mushroom 24oz" , "Pasta Sauce" , 1.25 , "074908324407" , 6 , false));
+		addToDB(new Item("Jif Creamy Peanut Butter 48oz","Peanut Butter" , 3.00,"051500240946" , 4 ,false));
+		addToDB(new Item("Blue Diamond Almonds Bold - Wasabi & Soy Sauce 16oz" , "Wasabi Almonds" , 8.00 , "041570055373" , 8 , false));
+		addToDB(new Item("Trident Xtra Care - Peppermint gum - 14 pieces" , "Trident Gum" , 1.00 , "012546673716", 1 , false));
+		addToDB(new Item("Colgate Total Clean Mint Toothpaste: Travel Size 0.75 OZ" , "Colgate Total Clean Mint Toothpaste" , 1.49 , "035000740007" , 9 , false));
+		
 		
 		for(int i=1;i<10;i++)
 		{

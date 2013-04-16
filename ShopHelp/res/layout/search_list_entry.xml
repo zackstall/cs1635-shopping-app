@@ -10,14 +10,16 @@
         android:layout_weight="1"
         android:orientation="horizontal" >
 
-        <Button
+        <ImageButton
             android:id="@+id/search_add_button"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="60dp"
             android:layout_height="32dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="@string/search_add" />
+            android:scaleType="fitCenter"
+            android:src="@drawable/button_add"
+            android:background="@android:color/transparent" />
 
         <TextView
             android:id="@+id/item_name"
@@ -32,20 +34,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
             android:layout_toLeftOf="@+id/increment_quantity"
             android:text="@string/zero"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <Button
+        <ImageButton
             android:id="@+id/decrement_quantity"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/item_quantity"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/button_decrement"
             android:text="@string/minus" />
 
-        <Button
+        <ImageButton
             android:id="@+id/increment_quantity"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="30dp"
@@ -53,6 +60,9 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="18dp"
             android:layout_toLeftOf="@+id/search_add_button"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/button_increment"
             android:text="@string/plus" />
 
     </RelativeLayout>

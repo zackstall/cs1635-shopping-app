@@ -17,13 +17,14 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
 public class ShopListActivity extends ShopActivity {
 	static final String TAG = "ListActivity";
 
-	private Button searchButton;
+	private ImageButton searchButton;
 	private ItemAdapter itemAdapter;
 	private ArrayList<Item> itemList;
 	private ArrayList<Item> checkedList;
@@ -65,7 +66,7 @@ public class ShopListActivity extends ShopActivity {
 
 	private void initializeViewItems() {
 		setContentView(R.layout.activity_list);
-		searchButton = (Button) findViewById(R.id.add_item_button);
+		searchButton = (ImageButton) findViewById(R.id.add_item_button);
 		totalPriceText = (TextView) findViewById(R.id.total_price);
 	}
 
@@ -115,9 +116,9 @@ public class ShopListActivity extends ShopActivity {
 				TextView nameField = (TextView) view.findViewById(R.id.item_name);
 				TextView quantityField = (TextView) view.findViewById(R.id.item_quantity);
 
-				Button incrementButton = (Button) view.findViewById(R.id.increment_quantity);
-				Button decrementButton = (Button) view.findViewById(R.id.decrement_quantity);
-				Button itemActionButton = (Button) view	.findViewById(R.id.item_action_button);
+				ImageButton incrementButton = (ImageButton) view.findViewById(R.id.increment_quantity);
+				ImageButton decrementButton = (ImageButton) view.findViewById(R.id.decrement_quantity);
+				ImageButton itemActionButton = (ImageButton) view	.findViewById(R.id.item_action_button);
 
 				nameField.setTag(position);//CAUTION: the tag has to be a number or shit will break
 
@@ -142,7 +143,7 @@ public class ShopListActivity extends ShopActivity {
 			return view;
 		}
 		
-		private void setUpAdapterListeners(Button incrementButton, Button decrementButton, Button itemActionButton, CheckBox inCartCheckBox, final TextView nameField) {
+		private void setUpAdapterListeners(ImageButton incrementButton, ImageButton decrementButton, ImageButton itemActionButton, CheckBox inCartCheckBox, final TextView nameField) {
 			
 			incrementButton.setOnClickListener(new OnClickListener() {
 				@Override

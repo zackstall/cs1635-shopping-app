@@ -19,7 +19,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="false"
-        android:layout_below="@id/topItem"
         android:gravity="center_horizontal"
         android:text="@string/item_name"
         android:textAlignment="center"
@@ -45,20 +44,24 @@
         android:text="@string/quantity_heading"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <Button
+    <ImageButton
         android:id="@+id/decrement_quantity"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_alignBottom="@+id/item_quantity"
         android:layout_toLeftOf="@+id/item_quantity"
-        android:text="@string/minus" />
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/button_decrement" />
 
     <TextView
         android:id="@+id/item_quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/increment_quantity"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
         android:layout_toLeftOf="@+id/increment_quantity"
         android:text="@string/zero"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -83,15 +86,17 @@
         android:text="@string/default_price"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <Button
+    <ImageButton
         android:id="@+id/increment_quantity"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_alignBottom="@+id/quantity_header"
         android:layout_alignRight="@+id/item_name"
-        android:text="@string/plus" />
+        android:background="@android:color/transparent"
 
+android:scaleType="fitCenter"
+        android:src="@drawable/button_increment" />
 
     <View
         android:id="@+id/separator_3"
@@ -111,14 +116,19 @@
         android:layout_margin="15dp"
         android:background="#ffffff" />
 
-    <Button
+    <ImageButton
         android:id="@+id/remove_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/separator_2"
-        android:text="@string/remove_button" />
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/button_remove" />
 
     <TextView
         android:id="@+id/total_tag"
