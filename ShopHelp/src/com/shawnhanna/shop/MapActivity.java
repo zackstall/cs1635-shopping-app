@@ -3,6 +3,7 @@ package com.shawnhanna.shop;
 import java.util.ArrayList;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -38,6 +39,7 @@ public class MapActivity extends ShopActivity {
 			itemDot.setImageResource(R.drawable.red_dot);
 			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(50, 50);
 			setCoords((int)currItem.getLocationID(), params);
+			itemDot.setBackgroundColor(Color.TRANSPARENT);
 			itemDot.setLayoutParams(params);
 			rLayout.addView(itemDot);
 			itemDot.setOnClickListener(new OnClickListener() {

@@ -246,21 +246,6 @@ public class DataService {
 	 * this work?
 	 */
 	protected void load() {
-<<<<<<< HEAD
-		addToDB(new Item("Ruffles Potato Chips", "Potato Chips", 3.99, 123456,
-				4, false));
-		addToDB(new Item("Schneiders 2% Milk", "2% Milk", 3.59, 123457, 9, false));
-		addToDB(new Item("Jiffy Peanut Butter", "Peanut Butter", 4.25, 123458,
-				3, false));
-		addToDB(new Item("Coca-Cola", "Pop", 2.24, 123459, 2, false));
-
-		// SharedPreferences prefs =
-		// PreferenceManager.getDefaultSharedPreferences(ShopActivity.getContext());
-		// if (prefs.getString("cartList", null) != null)
-		// cartList = (ArrayList<Item>)
-		// stringToObject(prefs.getString("cartList", null));
-		// db = (ArrayList<Item>) stringToObject(prefs.getString("db", null));
-=======
 
 		addToDB(new Item("Hungry Jack Potatoes - Mashed 15.3oz" , "Hungry Jack Potatoes" , 1.99 , "051500871027" , 4 ,false));
 		addToDB(new Item("San Giorgio Small Rigatoni 1lb" , "Rigatoni" , 1.25, "033400601249", 5 , false));
@@ -273,24 +258,6 @@ public class DataService {
 		addToDB(new Item("Colgate Total Clean Mint Toothpaste: Travel Size 0.75 OZ" , "Colgate Total Clean Mint Toothpaste" , 1.49 , "035000740007" , 9 , false));
 		
 		
-		for(int i=1;i<10;i++)
-		{
-			Node currNode = new Node();
-			currNode.setId(i);
-			nodeList.add(currNode);
-			
-			if(i <= 3)
-			{
-				currNode.setCoords(50*i, 50);
-			}else if(i <= 6 && i > 3)
-			{
-				currNode.setCoords(50*(i-3), 100);
-			}else
-			{
-				currNode.setCoords(50*(i-6), 150);
-			}
-		}
->>>>>>> f8fef5c826e0ec1530eee9f9376cabb35ca6635b
 	}
 
 	public Editor getPreferenceEditor() {
