@@ -36,8 +36,8 @@ public class MapActivity extends ShopActivity {
 		{
 			currItem = itemList.get(i);
 			final MapDot itemDot = new MapDot(MapActivity.getContext(), currItem);
-			itemDot.setImageResource(R.drawable.red_dot);
-			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(50, 50);
+			itemDot.setImageResource(R.drawable.item_point);
+			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(55, 55);
 			setCoords((int)currItem.getLocationID(), params);
 			itemDot.setBackgroundColor(Color.TRANSPARENT);
 			itemDot.setLayoutParams(params);
