@@ -243,8 +243,15 @@ public class ShopListActivity extends ShopActivity {
 				//DataService.getInstance().removeFromCart(item);
 				//TODO: set the quantity back to 1?
 				item.setQuantity(1);
+				refreshList();
 			}
 		});
+		
+		// create alert dialog
+		AlertDialog alertDialog = dialog.create();
+
+		// show it
+		alertDialog.show();
 
 	}
 }
