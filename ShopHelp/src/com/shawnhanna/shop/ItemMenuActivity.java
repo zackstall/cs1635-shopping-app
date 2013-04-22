@@ -1,6 +1,7 @@
 package com.shawnhanna.shop;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -133,13 +134,33 @@ public class ItemMenuActivity extends ShopActivity {
 						* item.getQuantity()));
 
 				if (item.getQuantity() == 0) {
-					dataService.removeFromCart(item);
-					// TODO: fix this desperate workaround and force refresh
-					Intent intent = new Intent(ItemMenuActivity.this,
-							ShopListActivity.class);
-					startActivity(intent);
+					createDialog(item);
 				}
 			}
 		});
+	}
+
+	private void createDialog(final Item item) {
+		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+		dialog.setMessage("Are you sure?");
+		dialog.setCancelable(false);
+		dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				// if this button is clicked, close
+				// current activity
+				DataService.getInstance().removeFromCart(item);
+				Intent intent = new Intent(ShopListActivity.this,
+						ShopListActivity.class);
+				startActivity(intent);
+			}
+		});
+		dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				// DataService.getInstance().removeFromCart(item);
+				// TODO: set the quantity back to 1?
+				item.setQuantity(1);
+			}
+		});
+
 	}
 }
