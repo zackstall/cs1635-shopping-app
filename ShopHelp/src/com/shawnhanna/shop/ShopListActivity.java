@@ -55,8 +55,12 @@ public class ShopListActivity extends ShopActivity {
 		listView.setAdapter(itemAdapter);
 
 		setupMenuBarButtons(this);
+			
 		// define button listeners
-		initializeButtonListeners();
+		initializeButtonListeners();	
+		//ImageButton listMenuButton = (ImageButton) findViewById(R.id.listMenuButton);
+		//listMenuButton.setImageResource(R.drawable.icon_list2);
+
 		refreshList();
 	}
 

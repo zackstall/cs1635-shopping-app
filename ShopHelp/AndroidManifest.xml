@@ -5,9 +5,8 @@
     android:versionName="1.0" >
 
     <uses-permission android:name="android.permission.CAMERA" />
-	<uses-permission android:name="android.permission.VIBRATE"/>
-	
-	
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="17" />
@@ -19,7 +18,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.shawnhanna.shop.ShopListActivity"
-            android:theme="@android:style/Theme.NoTitleBar"                         android:configChanges="orientation"
+            android:configChanges="orientation"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,27 +28,27 @@
         </activity>
         <activity
             android:name="com.shawnhanna.shop.MapActivity"
-            android:theme="@android:style/Theme.NoTitleBar"                         android:configChanges="orientation"
+            android:configChanges="orientation"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.shawnhanna.shop.BarcodeActivity"
-            android:theme="@android:style/Theme.NoTitleBar"                         android:configChanges="orientation"
+            android:configChanges="orientation"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.shawnhanna.shop.SearchActivity"
-            android:theme="@android:style/Theme.NoTitleBar"                         android:configChanges="orientation"
+            android:configChanges="orientation"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.shawnhanna.shop.AisleViewActivity"
-            android:theme="@android:style/Theme.NoTitleBar"                         android:configChanges="orientation"
-            android:screenOrientation="portrait">
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.shawnhanna.shop.ItemMenuActivity"
-            android:theme="@android:style/Theme.NoTitleBar"                         android:configChanges="orientation"
+            android:configChanges="orientation"
             android:screenOrientation="portrait" >
         </activity>
     </application>
