@@ -12,13 +12,22 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         layout="@layout/menu_bar" />
-    
+
+    <Button
+        android:id="@+id/return_button"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/activity_return" />
+
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/include1"
-        android:layout_alignLeft="@+id/include1"
+        android:layout_alignParentLeft="true"
         android:orientation="horizontal" >
 
         <ImageButton
@@ -33,6 +42,14 @@
             android:src="@drawable/arrow_left" />
 
         <ImageButton
+            android:id="@+id/arr_up"
+            android:background="@android:color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/arrow_up" />
+
+        <ImageButton
             android:id="@+id/arr_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -43,14 +60,5 @@
             android:scaleType="fitCenter"
             android:src="@drawable/arrow_right" />
     </LinearLayout>
-
-    <Button
-        android:id="@+id/return_button"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:text="@string/activity_return" />
  
 </RelativeLayout>
