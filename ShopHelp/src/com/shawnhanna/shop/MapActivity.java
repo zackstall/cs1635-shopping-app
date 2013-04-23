@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 public class MapActivity extends ShopActivity {
@@ -22,6 +23,8 @@ public class MapActivity extends ShopActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_map);
 		setupMenuBarButtons(this);
+		ImageButton mapMenuButton = (ImageButton) this.findViewById(R.id.mapMenuButton);
+		mapMenuButton.setImageResource(R.drawable.icon_map_selected);
 		Log.d(TAG, "Created MapActivity");
 
 		// ==========================================================================================//

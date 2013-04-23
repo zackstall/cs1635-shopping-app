@@ -94,8 +94,7 @@
         android:layout_alignBottom="@+id/quantity_header"
         android:layout_alignRight="@+id/item_name"
         android:background="@android:color/transparent"
-
-android:scaleType="fitCenter"
+        android:scaleType="fitCenter"
         android:src="@drawable/button_increment" />
 
     <View
@@ -150,30 +149,44 @@ android:scaleType="fitCenter"
         android:text="@string/default_price"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <Button
-        android:id="@+id/find_button"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/aisle_button"
-        android:layout_alignBottom="@+id/aisle_button"
-        android:layout_alignParentRight="true"
-        android:text="@string/find_button" />
+        android:layout_height="50dp"
+        android:layout_below="@+id/remove_button"
+        android:layout_centerHorizontal="true" >
 
-    <Button
-        android:id="@+id/aisle_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/separator_3"
-        android:layout_toLeftOf="@+id/find_button"
-        android:layout_toRightOf="@+id/back_button"
-        android:text="@string/aisle_button" />
+        <ImageButton
+            android:id="@+id/back_button"
+            android:layout_width="50dp"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/button_back_arrow"
+            android:text="@string/activity_return" />
 
-    <Button
-        android:id="@+id/back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/separator_3"
-        android:text="@string/activity_return" />
+        <ImageButton
+            android:id="@+id/aisle_button"
+            android:layout_width="100dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="25dp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/button_aisle_view"
+            android:text="@string/aisle_button" />
+
+        <ImageButton
+            android:id="@+id/find_button"
+            android:layout_width="118dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="2dp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/button_find"
+            android:text="@string/find_button" />
+
+    </LinearLayout>
 
 </RelativeLayout>

@@ -14,9 +14,9 @@ public class ItemMenuActivity extends ShopActivity {
 	static final String TAG = "ItemMenuActivity";
 
 	private ImageButton removebutton;
-	private Button findButton;
-	private Button aisleButton;
-	private Button backButton;
+	private ImageButton findButton;
+	private ImageButton aisleButton;
+	private ImageButton backButton;
 	private ImageButton incrementButton;
 	private ImageButton decrementButton;
 	private TextView quantity;
@@ -72,9 +72,9 @@ public class ItemMenuActivity extends ShopActivity {
 		setContentView(R.layout.activity_item);
 
 		removebutton = (ImageButton) findViewById(R.id.remove_button);
-		findButton = (Button) findViewById(R.id.find_button);
-		aisleButton = (Button) findViewById(R.id.aisle_button);
-		backButton = (Button) findViewById(R.id.back_button);
+		findButton = (ImageButton) findViewById(R.id.find_button);
+		aisleButton = (ImageButton) findViewById(R.id.aisle_button);
+		backButton = (ImageButton) findViewById(R.id.back_button);
 		incrementButton = (ImageButton) findViewById(R.id.increment_quantity);
 		decrementButton = (ImageButton) findViewById(R.id.decrement_quantity);
 		quantity = (TextView) findViewById(R.id.item_quantity);

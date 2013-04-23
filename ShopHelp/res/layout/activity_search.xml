@@ -4,6 +4,15 @@
     android:layout_height="match_parent"
     tools:context=".ListActivity" >
 
+    <ImageView
+        android:id="@+id/topbar_spacer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitStart"
+        android:src="@drawable/topbar_search" />
+
     <include
         android:id="@+id/include1"
         android:layout_width="wrap_content"
@@ -12,42 +21,48 @@
         android:layout_centerHorizontal="true"
         layout="@layout/menu_bar" />
 
-    <Button
-        android:id="@+id/back_button"
-        style="?android:attr/buttonStyleSmall"
+    <ImageButton
+        android:id="@+id/button_back_arrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/search_bar"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="@string/activity_return" />
+        android:layout_alignTop="@+id/search_bar"
+        android:layout_below="@id/topbar_spacer"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/button_back_arrow" />
 
     <EditText
         android:id="@+id/search_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@+id/search_button"
-        android:layout_toRightOf="@+id/back_button"
+        android:layout_toRightOf="@+id/button_back_arrow"
+        android:layout_below="@id/topbar_spacer"
         android:ems="10"
         android:hint="@string/search_text" />
 
-    <Button
+    <ImageButton
         android:id="@+id/search_button"
-        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/search_bar"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:text="@string/search_button" />
+        android:layout_alignTop="@+id/search_bar"
+        android:layout_below="@id/topbar_spacer"
+        android:adjustViewBounds="false"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/button_search" />
 
     <view
         android:id="@+id/result_list_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/include1"
-        android:layout_alignLeft="@+id/back_button"
-        android:layout_below="@+id/back_button"
+        android:layout_alignLeft="@+id/button_back_arrow"
+        android:layout_below="@+id/button_back_arrow"
         class="ListView" />
     
     <ListView
@@ -65,5 +80,14 @@
 	    android:layout_alignLeft="@+id/result_list_view"
 	    android:layout_alignTop="@+id/result_list_view"
 	    android:text=""/>
+
+	<ImageView
+	    android:id="@+id/topbar_search"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:layout_alignParentTop="true"
+	    android:scaleType="fitStart"
+	    android:src="@drawable/topbar_search" />
 
 </RelativeLayout>
