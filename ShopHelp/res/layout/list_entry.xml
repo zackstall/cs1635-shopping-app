@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
-    android:padding="6dip">
+    android:padding="6dip" >
 
     <RelativeLayout
         android:layout_width="0dip"
@@ -26,8 +26,12 @@
             android:id="@+id/item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_alignBottom="@+id/item_action_button"
+            android:layout_alignTop="@+id/item_action_button"
+            android:layout_toLeftOf="@+id/decrement_quantity"
             android:layout_toRightOf="@+id/in_cart"
+            android:gravity="center_vertical"
+            android:lines="1"
             android:text="@string/list_item_name"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -57,9 +61,9 @@
             android:layout_height="30dp"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/item_quantity"
+            android:background="@android:color/transparent"
             android:scaleType="fitCenter"
-            android:src="@drawable/button_decrement"
-            android:background="@android:color/transparent" />
+            android:src="@drawable/button_decrement" />
 
         <ImageButton
             android:id="@+id/increment_quantity"
@@ -69,10 +73,9 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="38dp"
             android:layout_toLeftOf="@+id/item_action_button"
-            android:src="@drawable/button_increment"
             android:background="@android:color/transparent"
-            android:scaleType="fitCenter"/>
-
+            android:scaleType="fitCenter"
+            android:src="@drawable/button_increment" />
     </RelativeLayout>
 
 </LinearLayout>

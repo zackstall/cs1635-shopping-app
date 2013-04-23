@@ -150,7 +150,7 @@ public class ItemMenuActivity extends ShopActivity {
 				// current activity
 				DataService.getInstance().removeFromCart(item);
 				Intent intent = new Intent(ItemMenuActivity.this,
-						ItemMenuActivity.class);
+						ShopListActivity.class);
 				startActivity(intent);
 			}
 		});
@@ -161,7 +161,7 @@ public class ItemMenuActivity extends ShopActivity {
 				item.setQuantity(1);
 			}
 		});
-		
+
 		// create alert dialog
 		AlertDialog alertDialog = dialog.create();
 

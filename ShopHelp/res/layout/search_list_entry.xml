@@ -25,7 +25,12 @@
             android:id="@+id/item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_alignBottom="@+id/search_add_button"
+            android:layout_alignParentLeft="true"
+            android:layout_alignTop="@+id/decrement_quantity"
+            android:layout_toLeftOf="@+id/decrement_quantity"
+            android:gravity="center_vertical"
+            android:lines="1"
             android:text="@string/list_item_name"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 

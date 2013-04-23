@@ -51,7 +51,7 @@ public class DataService {
 		}
 		return singleton;
 	}
-	
+
 	public ArrayList<Item> getCart() {
 		cartLock.lock();
 		@SuppressWarnings("unchecked")
@@ -67,7 +67,7 @@ public class DataService {
 		listLock.unlock();
 		return retList;
 	}
-	
+
 	public ArrayList<MapDot> getDots() {
 		cartLock.lock();
 		@SuppressWarnings("unchecked")
@@ -75,9 +75,8 @@ public class DataService {
 		cartLock.unlock();
 		return retList;
 	}
-	
-	public void addDot(MapDot m)
-	{
+
+	public void addDot(MapDot m) {
 		dotList.add(m);
 	}
 
@@ -126,7 +125,7 @@ public class DataService {
 		if (this.inCart(item)) {
 			item.setQuantity(1);
 			cartList.remove(item);
-			if(inChecked(item)){
+			if (inChecked(item)) {
 				removeFromChecked(item);
 			}
 		}
@@ -247,17 +246,27 @@ public class DataService {
 	 */
 	protected void load() {
 
-		addToDB(new Item("Hungry Jack Potatoes - Mashed 15.3oz" , "Hungry Jack Potatoes" , 1.99 , "051500871027" , 1 ,false));
-		addToDB(new Item("San Giorgio Small Rigatoni 1lb" , "Rigatoni" , 1.25, "033400601249", 2 , false));
-		addToDB(new Item("Sweet Baby Ray's Barbecue Sauce - Oringinal 28oz" , "Barbeque Sauce" , 3.99 , "013409352311", 3 , false));
-		addToDB(new Item("Aunt Jemima - Original 24floz" , "Syrup" , 2.99 , "013409352311" ,4 , false));
-		addToDB(new Item("Del Grosso Pasta Sause - Mushroom 24oz" , "Pasta Sauce" , 1.25 , "074908324407" , 5 , false));
-		addToDB(new Item("Jif Creamy Peanut Butter 48oz","Peanut Butter" , 3.00,"051500240946" , 6 ,false));
-		addToDB(new Item("Blue Diamond Almonds Bold - Wasabi & Soy Sauce 16oz" , "Wasabi Almonds" , 8.00 , "041570055373" , 7 , false));
-		addToDB(new Item("Trident Xtra Care - Peppermint gum - 14 pieces" , "Trident Gum" , 1.00 , "012546673716", 8 , false));
-		addToDB(new Item("Colgate Total Clean Mint Toothpaste: Travel Size 0.75 OZ" , "Colgate Total Clean Mint Toothpaste" , 1.49 , "035000740007" , 9 , false));
-		
-		
+		addToDB(new Item("Hungry Jack Potatoes - Mashed 15.3oz",
+				"Hungry Jack Potatoes", 1.99, "051500871027", 1, false));
+		addToDB(new Item("San Giorgio Small Rigatoni 1lb", "Rigatoni", 1.25,
+				"033400601249", 2, false));
+		addToDB(new Item("Sweet Baby Ray's Barbecue Sauce - Oringinal 28oz",
+				"Barbeque Sauce", 3.99, "013409352311", 3, false));
+		addToDB(new Item("Aunt Jemima - Original 24floz", "Syrup", 2.99,
+				"013409352311", 4, false));
+		addToDB(new Item("Del Grosso Pasta Sause - Mushroom 24oz",
+				"Pasta Sauce", 1.25, "074908324407", 5, false));
+		addToDB(new Item("Jif Creamy Peanut Butter 48oz", "Peanut Butter",
+				3.00, "051500240946", 6, false));
+		addToDB(new Item("Blue Diamond Almonds Bold - Wasabi & Soy Sauce 16oz",
+				"Wasabi Almonds", 8.00, "041570055373", 7, false));
+		addToDB(new Item("Trident Xtra Care - Peppermint gum - 14 pieces",
+				"Trident Gum", 1.00, "012546673716", 8, false));
+		addToDB(new Item(
+				"Colgate Total Clean Mint Toothpaste: Travel Size 0.75 OZ",
+				"Colgate Total Clean Mint Toothpaste", 1.49, "035000740007", 9,
+				false));
+
 	}
 
 	public Editor getPreferenceEditor() {
