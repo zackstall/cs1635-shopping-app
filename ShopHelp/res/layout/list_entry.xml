@@ -17,6 +17,7 @@
             android:layout_height="32dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
             android:background="@android:color/transparent"
             android:scaleType="fitCenter"
             android:src="@drawable/button_carrot"
@@ -28,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/item_action_button"
             android:layout_alignTop="@+id/item_action_button"
-            android:layout_toLeftOf="@+id/decrement_quantity"
+            android:layout_toLeftOf="@+id/item_quantity"
             android:layout_toRightOf="@+id/in_cart"
             android:gravity="center_vertical"
             android:lines="1"
@@ -41,41 +42,36 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/item_name"
             android:layout_alignParentLeft="true"
-            android:layout_alignTop="@+id/increment_quantity" />
+            android:layout_centerVertical="true" />
 
         <TextView
             android:id="@+id/item_quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_toLeftOf="@+id/increment_quantity"
             android:text="@string/zero"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <ImageButton
+        <TextView
             android:id="@+id/decrement_quantity"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/item_name"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/item_quantity"
-            android:background="@android:color/transparent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/button_decrement" />
+            android:text="-"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <ImageButton
+        <TextView
             android:id="@+id/increment_quantity"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginRight="38dp"
             android:layout_toLeftOf="@+id/item_action_button"
-            android:background="@android:color/transparent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/button_increment" />
+            android:text="+"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
     </RelativeLayout>
 
 </LinearLayout>

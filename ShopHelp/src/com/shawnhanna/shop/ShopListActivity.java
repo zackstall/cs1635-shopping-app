@@ -55,11 +55,12 @@ public class ShopListActivity extends ShopActivity {
 		listView.setAdapter(itemAdapter);
 
 		setupMenuBarButtons(this);
-			
+
 		// define button listeners
-		initializeButtonListeners();	
-		//ImageButton listMenuButton = (ImageButton) findViewById(R.id.listMenuButton);
-		//listMenuButton.setImageResource(R.drawable.icon_list2);
+		initializeButtonListeners();
+		
+		ImageButton listMenuButton = (ImageButton) findViewById(R.id.listMenuButton);
+		listMenuButton.setImageResource(R.drawable.icon_list2);
 
 		refreshList();
 	}
@@ -125,9 +126,9 @@ public class ShopListActivity extends ShopActivity {
 				TextView quantityField = (TextView) view
 						.findViewById(R.id.item_quantity);
 
-				ImageButton incrementButton = (ImageButton) view
+				TextView incrementButton = (TextView) view
 						.findViewById(R.id.increment_quantity);
-				ImageButton decrementButton = (ImageButton) view
+				TextView decrementButton = (TextView) view
 						.findViewById(R.id.decrement_quantity);
 				ImageButton itemActionButton = (ImageButton) view
 						.findViewById(R.id.item_action_button);
@@ -158,8 +159,8 @@ public class ShopListActivity extends ShopActivity {
 			return view;
 		}
 
-		private void setUpAdapterListeners(ImageButton incrementButton,
-				ImageButton decrementButton, ImageButton itemActionButton,
+		private void setUpAdapterListeners(TextView incrementButton,
+				TextView decrementButton, ImageButton itemActionButton,
 				CheckBox inCartCheckBox, final TextView nameField) {
 
 			incrementButton.setOnClickListener(new OnClickListener() {
@@ -244,13 +245,13 @@ public class ShopListActivity extends ShopActivity {
 		});
 		dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
-				//DataService.getInstance().removeFromCart(item);
-				//TODO: set the quantity back to 1?
+				// DataService.getInstance().removeFromCart(item);
+				// TODO: set the quantity back to 1?
 				item.setQuantity(1);
 				refreshList();
 			}
 		});
-		
+
 		// create alert dialog
 		AlertDialog alertDialog = dialog.create();
 
