@@ -21,8 +21,8 @@ import android.widget.TextView;
 public class SearchActivity extends ShopActivity {
 	static final String TAG = "ListActivity";
 
-	private Button searchButton;
-	private Button backButton;
+	private ImageButton searchButton;
+	private ImageButton backButton;
 	private ListView listView;
 	private ArrayList<Item> currentResults;
 	private ResultAdapter resultAdapter;
@@ -59,8 +59,8 @@ public class SearchActivity extends ShopActivity {
 	private void initializeViewItems() {
 		setContentView(R.layout.activity_search);
 
-		backButton = (Button) findViewById(R.id.back_button);
-		searchButton = (Button) findViewById(R.id.search_button);
+		backButton = (ImageButton) findViewById(R.id.button_back_arrow);
+		searchButton = (ImageButton) findViewById(R.id.button_search);
 		searchBar = (EditText)findViewById(R.id.search_bar);
 	}
 
