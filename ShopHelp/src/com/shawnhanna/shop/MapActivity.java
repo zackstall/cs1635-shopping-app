@@ -38,6 +38,10 @@ public class MapActivity extends ShopActivity {
 		for(int i = 0; i< itemCount; i++)
 		{
 			currItem = itemList.get(i);
+			// Does not display dot if in cart
+			if(ds.inChecked(currItem)){
+				continue;
+			}
 			final MapDot itemDot = new MapDot(MapActivity.getContext(), currItem);
 			itemDot.setImageResource(R.drawable.item_point);
 			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(55, 55);

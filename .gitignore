@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # built application files
 *.apk
 *.ap_
@@ -21,3 +22,28 @@ local.properties
 .settings
 
 .DC_STORE
+=======
+# built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Eclipse project files
+.classpath
+.project
+.settings
+
+.DS_STORE
+>>>>>>> 77634a5c2ed0086e1040fe93269b646053e8c580

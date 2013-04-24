@@ -29,6 +29,7 @@ public class DataService {
 	private static final String TAG = "DataService";
 
 	private Lock cartLock = new ReentrantLock();
+	private Lock dotLock = new ReentrantLock();
 	private Lock listLock = new ReentrantLock();
 	private Lock dbLock = new ReentrantLock();
 	private ArrayList<Item> db = new ArrayList<Item>(50);
@@ -69,15 +70,17 @@ public class DataService {
 	}
 
 	public ArrayList<MapDot> getDots() {
-		cartLock.lock();
+		dotLock.lock();
 		@SuppressWarnings("unchecked")
 		ArrayList<MapDot> retList = (ArrayList<MapDot>) dotList.clone();
-		cartLock.unlock();
+		dotLock.unlock();
 		return retList;
 	}
 
 	public void addDot(MapDot m) {
+		dotLock.lock();
 		dotList.add(m);
+		dotLock.unlock();
 	}
 
 	public ArrayList<Item> getDB() {
@@ -267,6 +270,10 @@ public class DataService {
 				"Colgate Total Clean Mint Toothpaste", 1.49, "035000740007", 9,
 				false));
 
+		addToDB(new Item(
+				"5-hour Energy: Berry 1.93 Fl OZ",
+				"5-hour Energy: Berry", 2.50, "719410500016", 9,
+				false));
 	}
 
 	public Editor getPreferenceEditor() {

@@ -194,6 +194,7 @@ public class ShopListActivity extends ShopActivity {
 				public void onClick(View arg0) {
 					Intent intent = new Intent(ShopListActivity.this,
 							ItemMenuActivity.class);
+					Item item = items.get((Integer) nameField.getTag());
 					dataService.setSelectedItem(item);
 					startActivity(intent);
 					refreshList();
