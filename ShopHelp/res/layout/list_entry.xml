@@ -10,7 +10,7 @@
         android:layout_weight="1"
         android:orientation="horizontal" >
 
-        <ImageButton
+        <TextView
             android:id="@+id/item_action_button"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="33dp"
@@ -19,8 +19,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
             android:background="@android:color/transparent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/button_carrot"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/list_item_carrot" />
 
         <TextView
@@ -61,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_alignRight="@+id/item_name"
             android:layout_centerVertical="true"
-            android:text="-"
+            android:text="@string/decrement_string"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
@@ -70,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/item_action_button"
-            android:text="+"
+            android:text="@string/increment_string"
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </RelativeLayout>
 

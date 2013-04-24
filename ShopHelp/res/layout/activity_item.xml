@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".ListActivity" >
 
     <include
@@ -44,7 +45,7 @@
         android:text="@string/quantity_heading"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <ImageButton
+    <TextView
         android:id="@+id/decrement_quantity"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="30dp"
@@ -52,8 +53,9 @@
         android:layout_alignBottom="@+id/item_quantity"
         android:layout_toLeftOf="@+id/item_quantity"
         android:background="@android:color/transparent"
-        android:scaleType="fitCenter"
-        android:src="@drawable/button_decrement" />
+        android:text="@string/decrement_string"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:scaleType="fitCenter"/>
 
     <TextView
         android:id="@+id/item_quantity"
@@ -86,7 +88,7 @@
         android:text="@string/default_price"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <ImageButton
+    <TextView
         android:id="@+id/increment_quantity"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="30dp"
@@ -94,8 +96,9 @@
         android:layout_alignBottom="@+id/quantity_header"
         android:layout_alignRight="@+id/item_name"
         android:background="@android:color/transparent"
-        android:scaleType="fitCenter"
-        android:src="@drawable/button_increment" />
+        android:text="@string/increment_string"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:scaleType="fitCenter"/>
 
     <View
         android:id="@+id/separator_3"

@@ -163,4 +163,7 @@
 	  <string name="wifi_changing_network">Requesting connection to network\u2026</string>
 	  <string name="wifi_ssid_label">Network Name</string>
 	  <string name="wifi_type_label">Type</string>
+	  <string name="decrement_string">-</string>
+	  <string name="increment_string">+</string>
+	  <string name="search_list_add">ADD</string>
 </resources>

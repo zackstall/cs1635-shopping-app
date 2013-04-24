@@ -130,9 +130,9 @@ public class SearchActivity extends ShopActivity {
 				// view creation
 				TextView nameField = (TextView) view.findViewById(R.id.item_name);
 				TextView quantityField = (TextView) view.findViewById(R.id.item_quantity);
-				ImageButton incrementButton = (ImageButton) view.findViewById(R.id.increment_quantity);
-				ImageButton decrementButton = (ImageButton) view.findViewById(R.id.decrement_quantity);
-				ImageButton addButton = (ImageButton) view.findViewById(R.id.search_add_button);
+				TextView incrementButton = (TextView) view.findViewById(R.id.increment_quantity);
+				TextView decrementButton = (TextView) view.findViewById(R.id.decrement_quantity);
+				TextView addButton = (TextView) view.findViewById(R.id.search_add_button);
 				
 				nameField.setTag(position);//CAUTION: the tag has to be a number or shit will break
 				
@@ -149,7 +149,7 @@ public class SearchActivity extends ShopActivity {
 			return view;
 		}
 
-		private void setUpAdapterListeners(ImageButton incrementButton, ImageButton decrementButton, ImageButton addButton,  final TextView nameField) {
+		private void setUpAdapterListeners(TextView incrementButton, TextView decrementButton, TextView addButton,  final TextView nameField) {
 			
 			incrementButton.setOnClickListener(new OnClickListener() {
 				@Override

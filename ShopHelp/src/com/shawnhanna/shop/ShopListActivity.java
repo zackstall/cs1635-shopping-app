@@ -26,7 +26,6 @@ public class ShopListActivity extends ShopActivity {
 	private ImageButton searchButton;
 	private ItemAdapter itemAdapter;
 	private ArrayList<Item> itemList;
-	private ArrayList<Item> checkedList;
 	private DataService dataService;
 	private ListView listView;
 	private TextView totalPriceText;
@@ -128,7 +127,7 @@ public class ShopListActivity extends ShopActivity {
 						.findViewById(R.id.increment_quantity);
 				TextView decrementButton = (TextView) view
 						.findViewById(R.id.decrement_quantity);
-				ImageButton itemActionButton = (ImageButton) view
+				TextView itemActionButton = (TextView) view
 						.findViewById(R.id.item_action_button);
 
 				nameField.setTag(position);// CAUTION: the tag has to be a
@@ -158,7 +157,7 @@ public class ShopListActivity extends ShopActivity {
 		}
 
 		private void setUpAdapterListeners(TextView incrementButton,
-				TextView decrementButton, ImageButton itemActionButton,
+				TextView decrementButton, TextView itemActionButton,
 				CheckBox inCartCheckBox, final TextView nameField) {
 
 			incrementButton.setOnClickListener(new OnClickListener() {

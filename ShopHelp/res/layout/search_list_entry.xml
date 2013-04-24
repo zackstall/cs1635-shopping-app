@@ -10,16 +10,18 @@
         android:layout_weight="1"
         android:orientation="horizontal" >
 
-        <ImageButton
+        <TextView
             android:id="@+id/search_add_button"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="60dp"
             android:layout_height="32dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
             android:scaleType="fitCenter"
-            android:src="@drawable/button_add"
-            android:background="@android:color/transparent" />
+            android:text="@string/search_list_add"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/item_name"
@@ -45,7 +47,7 @@
             android:text="@string/zero"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <ImageButton
+        <TextView
             android:id="@+id/decrement_quantity"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="30dp"
@@ -54,10 +56,10 @@
             android:layout_toLeftOf="@+id/item_quantity"
             android:background="@android:color/transparent"
             android:scaleType="fitCenter"
-            android:src="@drawable/button_decrement"
-            android:text="@string/minus" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/decrement_string" />
 
-        <ImageButton
+        <TextView
             android:id="@+id/increment_quantity"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="30dp"
@@ -67,8 +69,8 @@
             android:layout_toLeftOf="@+id/search_add_button"
             android:background="@android:color/transparent"
             android:scaleType="fitCenter"
-            android:src="@drawable/button_increment"
-            android:text="@string/plus" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/increment_string" />
 
     </RelativeLayout>
 

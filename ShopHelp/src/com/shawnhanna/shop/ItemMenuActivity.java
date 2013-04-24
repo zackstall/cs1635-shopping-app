@@ -17,8 +17,8 @@ public class ItemMenuActivity extends ShopActivity {
 	private ImageButton findButton;
 	private ImageButton aisleButton;
 	private ImageButton backButton;
-	private ImageButton incrementButton;
-	private ImageButton decrementButton;
+	private TextView incrementButton;
+	private TextView decrementButton;
 	private TextView quantity;
 	private TextView totalPrice;
 	private DataService dataService;
@@ -75,8 +75,8 @@ public class ItemMenuActivity extends ShopActivity {
 		findButton = (ImageButton) findViewById(R.id.find_button);
 		aisleButton = (ImageButton) findViewById(R.id.aisle_button);
 		backButton = (ImageButton) findViewById(R.id.back_button);
-		incrementButton = (ImageButton) findViewById(R.id.increment_quantity);
-		decrementButton = (ImageButton) findViewById(R.id.decrement_quantity);
+		incrementButton = (TextView) findViewById(R.id.increment_quantity);
+		decrementButton = (TextView) findViewById(R.id.decrement_quantity);
 		quantity = (TextView) findViewById(R.id.item_quantity);
 		totalPrice = (TextView) findViewById(R.id.total_item_price);
 	}
