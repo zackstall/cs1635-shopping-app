@@ -267,6 +267,10 @@ public class DataService {
 				"Colgate Total Clean Mint Toothpaste", 1.49, "035000740007", 9,
 				false));
 
+		addToDB(new Item(
+				"5-hour Energy: Berry 1.93 Fl OZ",
+				"5-hour Energy: Berry", 2.50, "719410500016", 9,
+				false));
 	}
 
 	public Editor getPreferenceEditor() {
